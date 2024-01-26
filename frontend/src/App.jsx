@@ -1,13 +1,10 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
-import Home from "./pages/home/Home"
-import Signin from "./pages/signin/Signin"
-import Signup from "./pages/signup/Signup"
-import GeneratePrompt from "./pages/generateprompt/GeneratePrompt"
-
+import Home from "./pages/home/Home";
+import Signin from "./pages/signin/Signin";
+import Signup from "./pages/signup/Signup";
+import GeneratePrompt from "./pages/generateprompt/GeneratePrompt";
 
 const router = createBrowserRouter([
   {
@@ -23,15 +20,16 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
-    path: "/generateprompt",
+    path: "/generate",
     element: <GeneratePrompt />,
   },
-])
+]);
 
 function App() {
   return (
-      <RouterProvider router={router} />
-  )
+    <RouterProvider router={router}>
+      <Toaster />
+    </RouterProvider>
+  );
 }
-
-export default App
+export default App;
