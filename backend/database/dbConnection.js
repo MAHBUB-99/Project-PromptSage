@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
-export const dbConnection = async () => {
-  try {
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
-      dbName: "PromptSage Marketplace",
+export const dbConnection = () => {
+  mongoose
+    .connect(process.env.MONGODB_URI, {
+      dbName: "PromptSage",
+    })
+    .then(() => {
+      console.log("MongoDB connected successfully");
+    })
+    .catch((error) => {
+      console.log(error);
     });
-
-    console.log(`MongoDB connected: ${db.connection.host}`);
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
-  }
 };
