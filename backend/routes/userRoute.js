@@ -1,10 +1,13 @@
 import express from "express";
-import { createUser } from "../controller/user.js";
+import { createUser, login, logout } from "../controller/user.js";
+import { isAuthorized } from "../middlewares/auth.js";
 
 const router = express.Router();
 
 // POST /users
 router.post("/create", createUser);
+router.post("/login", login);
+router.get("/logout", isAuthorized, logout);
 
 // GET /users
 // router.get('/users', (req, res) => {

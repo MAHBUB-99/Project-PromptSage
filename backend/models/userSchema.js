@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -17,6 +20,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please Enter Your Password!"],
+    select: false,
   },
   // avatar: {
   //   public_id: {
@@ -32,11 +36,32 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     default: "user",
+    enum: ["user", "admin"],
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+// Encrypting Password Before Saving User
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  this.password = await bcrypt.hash(this.password, 10);
+});
+
+// Comparing password
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// Return JWT Token
+userSchema.methods.getJWTToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET_KEY, {
+    expiresIn: process.env.JWT_EXPIRE,
+  });
+};
 
 export const User = mongoose.model("User", userSchema);

@@ -1,14 +1,24 @@
 import { User } from "../models/userSchema.js";
-import ErrorHandler from "../error/error.js";
+import ErrorHandler from "../middlewares/error.js";
+import { catchAsyncError } from "../middlewares/catchAsyncError.js";
+import { sendToken } from "../utils/jwtToken.js";
 
 // Controller function to create a new user
-export const createUser = async (req, res, next) => {
+export const createUser = catchAsyncError(async (req, res, next) => {
+  const { username, email, password, role } = req.body;
   if (!req.body.username || !req.body.email || !req.body.password) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
   try {
-    const newUser = await User.create(req.body);
-    res.status(201).json({ message: "User created successfully", newUser });
+    const existingUsersCount = await User.countDocuments();
+    const userRole = existingUsersCount === 0 ? "admin" : role || "user";
+    const newUser = await User.create({
+      username,
+      email,
+      password,
+      role: userRole,
+    });
+    sendToken(newUser, 201, res, "User Registered successfully");
     // console.log(newUser._id);
   } catch (error) {
     if (error.name === "ValidationError") {
@@ -19,7 +29,33 @@ export const createUser = async (req, res, next) => {
     }
     return next(error);
   }
-};
+});
+
+export const login = catchAsyncError(async (req, res, next) => {
+  const { email, password, role } = req.body;
+  if (!req.body.email || !req.body.password) {
+    return next(new ErrorHandler("Please provide all required fields", 400));
+  }
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(new ErrorHandler("Invalid Email or Password", 401));
+  }
+  const isPasswordMatched = await user.comparePassword(password);
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Invalid Email or Password", 401));
+  }
+  sendToken(user, 200, res, "Login Successful");
+});
+
+export const logout = catchAsyncError(async (req, res, next) => {
+  res.status(201).cookie("token", "", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  }).json({
+    success: true,
+    message: "Logged out",
+  });
+});
 
 // // Controller function to get all users
 // const getUsers = async (req, res) => {

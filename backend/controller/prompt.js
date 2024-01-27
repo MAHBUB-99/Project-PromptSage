@@ -1,5 +1,5 @@
 import { Prompt } from "../models/promptSchema.js";
-import ErrorHandler from "../error/error.js";
+import ErrorHandler from "../middlewares/error.js";
 
 // Controller function to create a new Prompt
 export const createPrompt = async (req, res, next) => {
