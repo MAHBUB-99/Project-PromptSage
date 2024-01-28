@@ -115,4 +115,4 @@ function SellPrompt() {
     )
 }
 
-export default SellPrompt
+export default SellPrompt;

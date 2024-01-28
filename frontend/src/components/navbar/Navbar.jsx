@@ -10,17 +10,10 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-<<<<<<< HEAD
   { name: "Marketplace", href: "/marketplace", current: false },
   { name: "Generate", href: "/generate", current: false },
   { name: "Hire", href: "/hire", current: false },
   { name: "Sell", href: "/sellprompt", current: false },
-=======
-  { name: "Marketplace", to: "/marketplace", current: false },
-  { name: "Generate", to: "/generate", current: false },
-  { name: "Hire", to: "/hire", current: false },
-  { name: "Sell", to: "/sellprompt", current: false },
->>>>>>> 5770e69015cb1c5f64fd1ceb6a043e8503dbeeb5
 ];
 
 function classNames(...classes) {
