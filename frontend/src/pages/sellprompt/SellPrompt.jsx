@@ -32,7 +32,17 @@ function SellPrompt() {
                     className='h-10 w-50 text-sm bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
-                '/>
+                    '/>
+
+
+                <label for="Name" className="block mt-2 mb-2 text-sm font-medium text-white">Upload Prompt Cover Image</label>
+                <input
+                    id="file_input"
+                    type="file"
+                    className="h-7 w-1/2 block  bg-slate-800 text-sm text-white border
+                    border-gray-300 rounded-lg cursor-pointer bg-black dark:text-gray-400 focus:outline-none
+                    dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white"
+                />
 
                 <label for="Description" className="block mt-2 mb-2 text-sm font-medium text-white">Prompt Description</label>
                 <textarea
@@ -77,6 +87,18 @@ function SellPrompt() {
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
                 '/>
 
+                <label htmlFor="file_input" className="block mt-2 mb-2 text-sm font-medium text-white">
+                    Upload Sample Images related your prompt
+                </label>
+                <input
+                    id="file_input"
+                    type="file"
+                    className="h-7 w-1/2 block bg-black text-white text-sm border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white"
+                    multiple
+                    accept="image/*"
+                />
+
+
                 <label for="Engine" className="block mt-2 mb-2 text-sm font-medium text-white">*Engine</label>
                 <select id="price" className=" bg-slate-800 border w-50 border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
                     <option selected>Select GPT Engine</option>
@@ -97,6 +119,7 @@ function SellPrompt() {
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
                 '/>
             </div>
+
 
             <button class=" flex items-center justify-center ml-40 p-0.5  mt-2 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-amber-500 to-rose-600 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
                 <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-slate-800 text-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">

@@ -40,10 +40,17 @@ function Signin() {
   };
 
   return (
-    <div>
+    <div className='bg-slate-900'>
       <Navbar />
-      <section className="bg-gray-50 dark:bg-gray-900">
+      <section className="bg-slate-900 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<<<<<<< HEAD
+          <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white">
+            <img className="w-8  h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo" />
+            PromptSage
+          </a>
+          <div className="w-full bg-slate-800 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+=======
           <Link
             to="/"
             className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
@@ -56,12 +63,21 @@ function Signin() {
             PromptSage
           </Link>
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+>>>>>>> 5770e69015cb1c5f64fd1ceb6a043e8503dbeeb5
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
                 Sign in to your account
               </h1>
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
+<<<<<<< HEAD
+                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-white dark:text-white">Your email</label>
+                  <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="" />
+                </div>
+                <div>
+                  <label htmlFor="password" className="block mb-2 text-sm font-medium text-white dark:text-white">Password</label>
+                  <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
+=======
                   <label
                     htmlFor="email"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -94,6 +110,7 @@ function Signin() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+>>>>>>> 5770e69015cb1c5f64fd1ceb6a043e8503dbeeb5
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
@@ -107,6 +124,16 @@ function Signin() {
                       />
                     </div>
                     <div className="ml-3 text-sm">
+<<<<<<< HEAD
+                      <label htmlFor="remember" className="text-white dark:text-gray-300">Remember me</label>
+                    </div>
+                  </div>
+                  <a href="#" className="text-sm font-medium text-white hover:underline dark:text-primary-500">Forgot password?</a>
+                </div>
+                <button type="submit" className="w-full border-white text-white hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2 text-center me-2 mb-12 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-900">Sign in</button>
+                <p className="text-sm font-light text-white dark:text-gray-400">
+                  Don’t have an account yet? <a href="/signup" className="font-medium text-white hover:underline dark:text-black">Sign up</a>
+=======
                       <label
                         htmlFor="remember"
                         className="text-gray-500 dark:text-gray-300"
@@ -137,6 +164,7 @@ function Signin() {
                   >
                     Sign up
                   </Link>
+>>>>>>> 5770e69015cb1c5f64fd1ceb6a043e8503dbeeb5
                 </p>
               </form>
             </div>
