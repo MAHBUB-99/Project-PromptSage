@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Home from "./pages/home/Home";
 import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
-import GeneratePrompt from "./pages/generateprompt/GeneratePrompt";
+import GeneratePrompt from "./pages/generateprompt/GeneratePrompt";import SellPrompt from "./pages/sellprompt/SellPrompt"
+import HireEngineerHome from "./pages/hire/HireEngineerHome";
+import MarketPlaceHome from "./pages/marketplace/MarketPlaceHome";
+
 
 const router = createBrowserRouter([
   {
@@ -24,7 +27,20 @@ const router = createBrowserRouter([
     path: "/generate",
     element: <GeneratePrompt />,
   },
-]);
+  {
+    path: "/sellprompt",
+    element: <SellPrompt />,
+  },
+  {
+    path: "/hire",
+    element: <HireEngineerHome />,
+  },
+  {
+    path: "/marketplace",
+    element: <MarketPlaceHome />,
+  }
+
+])
 
 function App() {
   return (

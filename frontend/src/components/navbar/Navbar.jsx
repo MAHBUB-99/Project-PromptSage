@@ -10,10 +10,10 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Marketplace", to: "/", current: false },
+  { name: "Marketplace", to: "/marketplace", current: true },
   { name: "Generate", to: "/generate", current: false },
-  { name: "Hire", to: "/", current: false },
-  { name: "Sell", to: "/", current: false },
+  { name: "Hire", to: "/hire", current: false },
+  { name: "Sell", to: "/sellprompt", current: false },
 ];
 
 function classNames(...classes) {
