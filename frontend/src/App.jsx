@@ -1,13 +1,10 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
-import Home from "./pages/home/Home"
-import Signin from "./pages/signin/Signin"
-import Signup from "./pages/signup/Signup"
-import GeneratePrompt from "./pages/generateprompt/GeneratePrompt"
-import SellPrompt from "./pages/sellprompt/SellPrompt"
+import Home from "./pages/home/Home";
+import Signin from "./pages/signin/Signin";
+import Signup from "./pages/signup/Signup";
+import GeneratePrompt from "./pages/generateprompt/GeneratePrompt";import SellPrompt from "./pages/sellprompt/SellPrompt"
 import HireEngineerHome from "./pages/hire/HireEngineerHome";
 import MarketPlaceHome from "./pages/marketplace/MarketPlaceHome";
 
@@ -26,7 +23,7 @@ const router = createBrowserRouter([
     element: <Signup />,
   },
   {
-    path: "/generateprompt",
+    path: "/generate",
     element: <GeneratePrompt />,
   },
   {
@@ -46,8 +43,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-      <RouterProvider router={router} />
-  )
+    <RouterProvider router={router}>
+      <Toaster />
+    </RouterProvider>
+  );
 }
-
-export default App
+export default App;
