@@ -16,11 +16,32 @@ const promptSchema = new mongoose.Schema({
     minLength: [20, "Prompt Description Must Be Longer Than 20 Characters!"],
     maxLength: [700, "Prompt Description Cannot Exceed 3000 Characters!"],
   },
+  type: {
+    type: String,
+    required: [true, "Please Enter Prompt Type!"],
+  },
+  price: {
+    type: Number,
+    required: [true, "Please Enter Prompt Price!"],
+    default: 0.0,
+  },
   prompt: {
     type: String,
     required: [true, "Please Enter Your Prompt!"],
-    minLength: [10, "Prompt Must Be Longer Than 10 Characters!"],
+    minLength: [100, "Prompt Must Be Longer Than 10 Characters!"],
+    maxLength: [5000, "Prompt Cannot Exceed 5000 Characters!"],
   },
+  engine: {
+    type: String,
+    required: [true, "Please Select Engine!"],
+  },
+  tipsToUse: {
+    type: String,
+    required: false,
+    minLength: [20, "Tips To Use Must Be Longer Than 20 Characters!"],
+    maxLength: [500, "Tips To Use Cannot Exceed 500 Characters!"],
+  },
+  
   // created by a user (username)
   uploadedBy: {
     type: mongoose.Schema.Types.ObjectId,
