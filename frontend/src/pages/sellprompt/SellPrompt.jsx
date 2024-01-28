@@ -1,10 +1,25 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
+import { useAuth } from '../../AuthContext'
 
 function SellPrompt() {
 
+    const {isLoggedIn} = useAuth();
+    if (!isLoggedIn) {
+        return (
+            <div className='max-h-full max-w-full bg-slate-900 pb-10'>
+                <Navbar />
+                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Please Login to Sell a Prompt
+                    </h1>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div className='max-h-full max-w-full bg-slate-900 '>
+        <div className='max-h-full max-w-full bg-slate-900 pb-10'>
             <Navbar />
             <div className='flex flex-col ml-40 mt-4 mx-auto max-w-5xl'>
 
@@ -14,7 +29,7 @@ function SellPrompt() {
                     id='title'
                     placeholder=''
 
-                    className='h-10 w-1/2 text-sm bg-slate-800 border-2 rounded-lg  
+                    className='h-10 w-50 text-sm bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
                     '/>
@@ -36,13 +51,13 @@ function SellPrompt() {
                     placeholder=''
                     rows={4}
 
-                    className='h-22 w-1/2  text-sm  bg-slate-800 border-2 rounded-lg  
+                    className='h-22 w-50  text-sm  bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
                 '/>
 
                 <label for="type" className="block mt-2 mb-2 text-sm font-medium text-white">Prompt Type</label>
-                <select id="price" className="w-1/2 bg-slate-800 border border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
+                <select id="price" className="w-50 bg-slate-800 border border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
                     <option selected>Select Prompt Type</option>
                     <option value="">DALL-E</option>
                     <option value="">GPT</option>
@@ -51,7 +66,7 @@ function SellPrompt() {
                 </select>
 
                 <label for="price" className="block mt-2 mb-2 text-sm font-medium text-white">Estimated Price</label>
-                <select id="price" className="w-1/2 bg-slate-800 border border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
+                <select id="price" className="w-50 bg-slate-800 border border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
                     <option selected>Price</option>
                     <option value="">$2</option>
                     <option value="">$3</option>
@@ -60,14 +75,14 @@ function SellPrompt() {
                 </select>
 
 
-                <label for="Prompt" className="block mt-2 mb-2 text-sm font-medium text-white">Prompt * *</label>
+                <label for="Prompt" className="block mt-2 mb-2 text-sm font-medium text-white">*Prompt<br /><i><small>Copy and paste your prompt below. Ensure any editable parts of your prompt are indicated by [square brackets]</small></i></label>
                 <textarea
                     type="text"
                     id='description'
                     placeholder='Copy and paste your prompt here.'
                     rows={4}
 
-                    className='h-22 w-1/2  text-sm  bg-slate-800 border-2 rounded-lg  
+                    className='h-22 w-50  text-sm  bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
                 '/>
@@ -85,7 +100,7 @@ function SellPrompt() {
 
 
                 <label for="Engine" className="block mt-2 mb-2 text-sm font-medium text-white">*Engine</label>
-                <select id="price" className=" bg-slate-800 border w-1/2 border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
+                <select id="price" className=" bg-slate-800 border w-50 border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white">
                     <option selected>Select GPT Engine</option>
                     <option value="">Chat gpt-4 turbo</option>
                     <option value="">Chat gpt</option>
@@ -99,7 +114,7 @@ function SellPrompt() {
                     id='tips'
                     placeholder=''
 
-                    className='h-22 w-1/2  text-sm  bg-slate-800 border-2 rounded-lg  
+                    className='h-22 w-50  text-sm  bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
                     focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
                 '/>

@@ -3,7 +3,7 @@ import ErrorHandler from "../middlewares/error.js";
 
 // Controller function to create a new Prompt
 export const createPrompt = async (req, res, next) => {
-  if (!req.body.title || !req.body.prompt || !req.body.uploadedBy) {
+  if (!req.body.title || !req.body.prompt || !req.body.uploadedBy || !req.body.engine || !req.body.type || !req.body.description || !req.body.price) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
   try {
