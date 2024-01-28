@@ -41,7 +41,17 @@ const promptSchema = new mongoose.Schema({
     minLength: [6, "Tips To Use Must Be Longer Than 20 Characters!"],
     maxLength: [1000, "Tips To Use Cannot Exceed 500 Characters!"],
   },
-  // images: [
+  cover_image: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  // sample_images: [
   //   {
   //     public_id: {
   //       type: String,

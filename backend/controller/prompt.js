@@ -1,6 +1,7 @@
 import { Prompt } from "../models/promptSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
+import cloudinary from "cloudinary";
 
 // Controller function to create a new Prompt
 export const createPrompt = catchAsyncError(async (req, res, next) => {
@@ -14,35 +15,77 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
   if (!title || !description || !type || !price || !prompt || !engine) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
-  const uploadedBy = req.user._id;
-  try {
-    const newPrompt = await Prompt.create({
-      title,
-      description,
-      type,
-      price,
-      prompt,
-      engine,
-      tipsToUse,
-      uploadedBy,
-    });
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Prompt created successfully",
-        newPrompt,
-      });
-    // console.log(newPrompt._id);
-  } catch (error) {
-    if (error.name === "ValidationError") {
-      const messages = Object.values(error.errors).map(
-        (value) => value.message
-      );
-      return next(new ErrorHandler(messages.join(", "), 400));
-    }
-    return next(error);
+  // if(!req.file || Object.keys(req.file).length === 0 ){
+  //   return next(new ErrorHandler("Please upload a prompt cover image", 400));
+  // }
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return next(new ErrorHandler("Please upload images", 400));
   }
+  const { cover_image } = req.files;
+  // const {sample_images} = req.files;
+  const allowedFormats = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+  if (!allowedFormats.includes(cover_image.mimetype)) {
+    return next(new ErrorHandler("Please upload a valid cover image", 400));
+  }
+  // for (let i = 0; i < req.files.length; i++) {
+  //   if (!allowedFormats.includes(req.files[i].mimetype)) {
+  //     return next(new ErrorHandler("Please upload valid sample images", 400));
+  //   }
+  // }
+  const cloudinaryResponse = await cloudinary.uploader.upload(cover_image.tempFilePath, {
+    folder: "prompt/cover_image",
+    // width: 150,
+    // crop: "scale",
+  });
+  if (!cloudinaryResponse || cloudinaryResponse.error) {
+    console.log(
+      "Cloudinary Error: ",
+      cloudinaryResponse.error || "Unknown Error"
+    );
+    return next(new ErrorHandler("Prompt cover image upload failed", 500));
+  }
+  // const cover_image_url = cloudinaryResponse.secure_url;
+  // const cover_image_public_id = cloudinaryResponse.public_id;
+  // const sample_images_url = [];
+  // const sample_images_public_id = [];
+  // for(let i=0;i<sample_images.length;i++){
+  //   const cloudinaryResponse = await cloudinary.uploader.upload(sample_images[i].tempFilePath);
+  //   if(!cloudinaryResponse || cloudinaryResponse.error){
+  //     console.log("Cloudinary Error: ",cloudinaryResponse.error||"Unknown Error");
+  //     return next(new ErrorHandler("Prompt sample image upload failed", 500));
+  //   }
+  //   sample_images_url.push(cloudinaryResponse.secure_url);
+  //   sample_images_public_id.push(cloudinaryResponse.public_id);
+  // }
+
+  const uploadedBy = req.user._id;
+  const newPrompt = await Prompt.create({
+    title,
+    description,
+    type,
+    price,
+    prompt,
+    engine,
+    tipsToUse,
+    cover_image: {
+      public_id: cloudinaryResponse.public_id,
+      url: cloudinaryResponse.secure_url,
+    },
+    uploadedBy,
+
+    // sample_images: sample_images.map((image) => {
+    //   return {
+    //     public_id: image.public_id,
+    //     url: image.secure_url,
+    //   };
+    // }),
+  });
+  res.status(201).json({
+    success: true,
+    message: "Prompt created successfully",
+    newPrompt,
+  });
+  // console.log(newPrompt._id);
 });
 
 export const getAllPrompts = catchAsyncError(async (req, res, next) => {
@@ -66,13 +109,15 @@ export const updatePrompt = catchAsyncError(async (req, res, next) => {
   if (role === "admin") {
     return next(new ErrorHandler("You are not allowed to sell prompts", 400));
   }
-  const {id} = req.params;
+  const { id } = req.params;
   let prompt = await Prompt.findById(id);
   if (!prompt) {
     return next(new ErrorHandler("Oops! Prompt not found", 404));
   }
   if (prompt.uploadedBy.toString() !== req.user._id.toString()) {
-    return next(new ErrorHandler("You are not authorized to update this prompt", 401));
+    return next(
+      new ErrorHandler("You are not authorized to update this prompt", 401)
+    );
   }
   prompt = await Prompt.findByIdAndUpdate(id, req.body, {
     new: true,
@@ -87,13 +132,15 @@ export const updatePrompt = catchAsyncError(async (req, res, next) => {
 });
 
 export const deletePrompt = catchAsyncError(async (req, res, next) => {
-  const {id} = req.params;
+  const { id } = req.params;
   let prompt = await Prompt.findById(id);
   if (!prompt) {
     return next(new ErrorHandler("Oops! Prompt not found", 404));
   }
   if (prompt.uploadedBy.toString() !== req.user._id.toString()) {
-    return next(new ErrorHandler("You are not authorized to delete this prompt", 401));
+    return next(
+      new ErrorHandler("You are not authorized to delete this prompt", 401)
+    );
   }
   await prompt.deleteOne();
   res.status(200).json({
