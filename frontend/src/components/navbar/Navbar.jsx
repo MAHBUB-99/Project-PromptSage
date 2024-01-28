@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import {
   Bars3Icon,
@@ -10,7 +10,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Marketplace", to: "/marketplace", current: true },
+  { name: "Marketplace", to: "/marketplace", current: false },
   { name: "Generate", to: "/generate", current: false },
   { name: "Hire", to: "/hire", current: false },
   { name: "Sell", to: "/sellprompt", current: false },
@@ -21,6 +21,13 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const { pathname } = useLocation();
+  const updatedNavigation = navigation.map((item) => {
+    if (pathname === item.to) {
+      return { ...item, current: true };
+    }
+    return { ...item, current: false };
+  });
   const { isLoggedIn } = useAuth();
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -50,7 +57,7 @@ export default function Navbar() {
                     />
                   </Link>
                 </div>
-                <div className="hidden sm:ml-3 sm:block" >
+                <div className="hidden sm:ml-3 sm:block">
                   <div className="flex space-x-4">
                     <Link
                       className="text-xl text-white font-mono font-bold mt-1 mr-3"
@@ -58,7 +65,7 @@ export default function Navbar() {
                     >
                       PromptSage
                     </Link>
-                    {navigation.map((item) => (
+                    {updatedNavigation.map((item) => (
                       <Link
                         key={item.name}
                         to={item.to}
