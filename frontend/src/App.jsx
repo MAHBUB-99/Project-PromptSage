@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 import Home from "./pages/home/Home";
 import Signin from "./pages/signin/Signin";
@@ -32,4 +33,5 @@ function App() {
     </RouterProvider>
   );
 }
+
 export default App;
