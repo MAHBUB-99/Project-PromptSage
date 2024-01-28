@@ -10,7 +10,7 @@ import {
 
 const navigation = [
   { name: "Marketplace", href: "/marketplace", current: true },
-  { name: "Generate", href: "/generateprompt", current: false },
+  { name: "Generate", href: "/generate", current: false },
   { name: "Hire", href: "/hire", current: false },
   { name: "Sell", href: "/sellprompt", current: false },
 ];
