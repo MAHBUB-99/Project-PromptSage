@@ -10,6 +10,12 @@ const promptSchema = new mongoose.Schema({
     minLength: [6, "Prompt Title Must Be Longer Than 6 Characters!"],
     maxLength: [40, "Prompt Title Cannot Exceed 40 Characters!"],
   },
+  description:{
+    type: String,
+    required: [true, "Please Enter Prompt Description!"],
+    minLength: [20, "Prompt Description Must Be Longer Than 20 Characters!"],
+    maxLength: [700, "Prompt Description Cannot Exceed 3000 Characters!"],
+  },
   prompt: {
     type: String,
     required: [true, "Please Enter Your Prompt!"],
