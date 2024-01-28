@@ -42,13 +42,13 @@ function Signup() {
   };
 
   return (
-    <div>
+    <div className='bg-slate-900'>
       <Navbar />
-      <section className="bg-gray-50 dark:bg-gray-900 ">
+      <section className="bg-slate-900 dark:bg-gray-900 max-h-">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
             href="#"
-            className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+            className="flex items-center mb-6 text-2xl font-semibold text-white dark:text-white"
           >
             <img
               className="w-8 h-8 mr-2"
@@ -57,16 +57,16 @@ function Signup() {
             />
             PromptSage
           </a>
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-slate-800		 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
                 Sign Up
               </h1>
               <form className="space-y-4 md:space-y-6" action="#">
                 <div>
                   <label
                     htmlFor="username"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-white dark:text-white"
                   >
                     Username
                   </label>
@@ -83,7 +83,7 @@ function Signup() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-white dark:text-white"
                   >
                     Email
                   </label>
@@ -100,7 +100,7 @@ function Signup() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-white dark:text-white"
                   >
                     Password
                   </label>
@@ -132,7 +132,7 @@ function Signup() {
                 <button
                   onClick={handleSignup}
                   type="submit"
-                  className="text-[16px] w-full text-white hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg px-5 py-2 text-center me-2 mb-12 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-900"
+                  className="text-[16px]  w-full text-white hover:text-white border border-white hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg px-5 py-2 text-center me-2 mb-12 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-900"
                 >
                   Sign up
                 </button>

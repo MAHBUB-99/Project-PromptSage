@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Marketplace", href: "/marketplace", current: true },
+  { name: "Marketplace", href: "/marketplace", current: false },
   { name: "Generate", href: "/generate", current: false },
   { name: "Hire", href: "/hire", current: false },
   { name: "Sell", href: "/sellprompt", current: false },
