@@ -1,10 +1,13 @@
-import { createPrompt, getAllPrompts } from "../controller/prompt.js";
+import { createPrompt, deletePrompt, getAllPrompts, getMyPrompts, updatePrompt } from "../controller/prompt.js";
 import express from "express";
 import { isAuthorized } from "../middlewares/auth.js";
 
 const router = express.Router();
 
 router.post("/create", isAuthorized, createPrompt);
-router.get("/getAll", getAllPrompts);
+router.get("/all-prompts", getAllPrompts);
+router.get("/my-prompts", isAuthorized, getMyPrompts);
+router.put("/update/:id", isAuthorized, updatePrompt);
+router.delete("/delete/:id", isAuthorized, deletePrompt);
 
 export default router;
