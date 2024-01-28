@@ -1,6 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Link } from "react-scroll";
+import { Link, useLocation } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 import {
   Bars3Icon,
   BellIcon,
@@ -9,21 +10,32 @@ import {
 } from "@heroicons/react/24/outline";
 
 const navigation = [
+<<<<<<< HEAD
   { name: "Marketplace", href: "/marketplace", current: false },
   { name: "Generate", href: "/generate", current: false },
   { name: "Hire", href: "/hire", current: false },
   { name: "Sell", href: "/sellprompt", current: false },
+=======
+  { name: "Marketplace", to: "/marketplace", current: false },
+  { name: "Generate", to: "/generate", current: false },
+  { name: "Hire", to: "/hire", current: false },
+  { name: "Sell", to: "/sellprompt", current: false },
+>>>>>>> 5770e69015cb1c5f64fd1ceb6a043e8503dbeeb5
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
+export default function Navbar() {
+  const { pathname } = useLocation();
+  const updatedNavigation = navigation.map((item) => {
+    if (pathname === item.to) {
+      return { ...item, current: true };
+    }
+    return { ...item, current: false };
+  });
+  const { isLoggedIn } = useAuth();
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -44,26 +56,26 @@ export default function Example() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <a href="/">
+                  <Link to="/">
                     <img
                       className="h-8 w-auto"
                       src="src/assets/logo.png"
                       alt="Your Company"
                     />
-                  </a>
+                  </Link>
                 </div>
-                <div className="hidden sm:ml-3 sm:block" href="/generate">
+                <div className="hidden sm:ml-3 sm:block">
                   <div className="flex space-x-4">
-                    <a
+                    <Link
                       className="text-xl text-white font-mono font-bold mt-1 mr-3"
-                      href="/"
+                      to="/"
                     >
                       PromptSage
-                    </a>
-                    {navigation.map((item) => (
-                      <a
+                    </Link>
+                    {updatedNavigation.map((item) => (
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.to}
                         className={classNames(
                           item.current
                             ? "bg-gray-900 text-white"
@@ -73,7 +85,7 @@ export default function Example() {
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -111,41 +123,41 @@ export default function Example() {
                         <>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <Link
+                                to="/"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Your Profile
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <Link
+                                to="/"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Settings
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="#"
+                              <Link
+                                to="/"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Sign out
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                         </>
@@ -153,8 +165,8 @@ export default function Example() {
                         <>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="/signin"
+                              <Link
+                                to="/signin"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
@@ -162,20 +174,20 @@ export default function Example() {
                                 // onClick={() => setIsLoggedIn(true)}
                               >
                                 Sign In
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <a
-                                href="/signup"
+                              <Link
+                                to="/signup"
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Sign Up
-                              </a>
+                              </Link>
                             )}
                           </Menu.Item>
                         </>
@@ -193,7 +205,7 @@ export default function Example() {
                 <Disclosure.Button
                   key={item.name}
                   as="a"
-                  href={item.href}
+                  to={item.to}
                   className={classNames(
                     item.current
                       ? "bg-gray-900 text-white"
