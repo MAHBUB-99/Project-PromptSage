@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
 
 function MarketPlaceHome() {
   const [prompts, setPrompts] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
@@ -17,6 +18,10 @@ function MarketPlaceHome() {
 
     fetchPrompts();
   }, []);
+
+  const navigateToPromptDetails = (promptId) => {
+    navigate(`/marketplace/${promptId}`);
+  };
 
   return (
     <div className="bg-slate-900 h-screen">
@@ -36,7 +41,7 @@ function MarketPlaceHome() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {prompts.map((prompt) => (
             <div key={prompt._id} className="relative group">
-              <div className={`bg-gradient-to-b from-slate-600 to-slate-900 rounded-lg p-4 h-32 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105`}>
+              <div className={`bg-gradient-to-b from-slate-600 to-slate-900 rounded-lg p-4 h-90 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105`}>
                 <img src={prompt.cover_image.url} alt={prompt.title} className="w-full h-20 object-cover mb-2 rounded-lg" />
                 <p className="text-white font-semibold">{prompt.title}</p>
                 <p className="text-gray-300 text-sm">{prompt.engine}</p>
@@ -45,7 +50,7 @@ function MarketPlaceHome() {
               {/* Add onClick handler to navigate to prompt details */}
               <div
                 className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                // onClick={() => navigateToPromptDetails(prompt._id)}
+                onClick={() => navigateToPromptDetails(prompt._id)}
               ></div>
             </div>
           ))}
