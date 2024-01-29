@@ -148,3 +148,17 @@ export const deletePrompt = catchAsyncError(async (req, res, next) => {
     message: "Prompt deleted successfully",
   });
 });
+
+
+export const getPromptById = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const prompt = await Prompt.findById(id);
+  if (!prompt) {
+    return next(new ErrorHandler("Oops! Prompt not found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    prompt,
+  });
+});
+

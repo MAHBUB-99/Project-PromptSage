@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
+import { Link } from 'react-router-dom';
 
 // Dummy data for top-rated engineers
 const topRatedEngineers = [
@@ -23,7 +24,7 @@ function HireEngineerHome() {
           <p className="text-sm mb-8">or hire an engineer to work on your project.</p>
           <div className="flex justify-start space-x-4">
             <button className="border bg-gradient-to-r from-yellow-800 to-red-900 text-white px-6 py-3 rounded-lg transition duration-300">Hire an Engineer</button>
-            <a href='/sellprompt'><button className="border text-white px-6 py-3 rounded-lg transition duration-300">Become an Engineer</button></a>
+            <Link to='/sellprompt'><button className="border text-white px-6 py-3 rounded-lg transition duration-300">Become an Engineer</button></Link>
           </div>
         </div>
 
