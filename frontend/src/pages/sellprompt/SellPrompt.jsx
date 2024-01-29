@@ -7,10 +7,10 @@ function SellPrompt() {
     const {isLoggedIn} = useAuth();
     if (!isLoggedIn) {
         return (
-            <div className='max-h-full max-w-full bg-slate-900 pb-10'>
+            <div className='max-h-full max-w-full bg-slate-900 h-screen pb-10'>
                 <Navbar />
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                    <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
                         Please Login to Sell a Prompt
                     </h1>
                 </div>
@@ -130,4 +130,4 @@ function SellPrompt() {
     )
 }
 
-export default SellPrompt;
+export default SellPrompt
