@@ -13,7 +13,7 @@ const promptSchema = new mongoose.Schema({
   description:{
     type: String,
     required: [true, "Please Enter Prompt Description!"],
-    minLength: [20, "Prompt Description Must Be Longer Than 20 Characters!"],
+    minLength: [6, "Prompt Description Must Be Longer Than 20 Characters!"],
     maxLength: [700, "Prompt Description Cannot Exceed 3000 Characters!"],
   },
   type: {
@@ -28,7 +28,7 @@ const promptSchema = new mongoose.Schema({
   prompt: {
     type: String,
     required: [true, "Please Enter Your Prompt!"],
-    minLength: [100, "Prompt Must Be Longer Than 10 Characters!"],
+    minLength: [6, "Prompt Must Be Longer Than 10 Characters!"],
     maxLength: [5000, "Prompt Cannot Exceed 5000 Characters!"],
   },
   engine: {
@@ -38,13 +38,34 @@ const promptSchema = new mongoose.Schema({
   tipsToUse: {
     type: String,
     required: false,
-    minLength: [20, "Tips To Use Must Be Longer Than 20 Characters!"],
-    maxLength: [500, "Tips To Use Cannot Exceed 500 Characters!"],
+    minLength: [6, "Tips To Use Must Be Longer Than 20 Characters!"],
+    maxLength: [1000, "Tips To Use Cannot Exceed 500 Characters!"],
   },
-  
+  cover_image: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
+  // sample_images: [
+  //   {
+  //     public_id: {
+  //       type: String,
+  //       required: false,
+  //     },
+  //     url: {
+  //       type: String,
+  //       required: false,
+  //     },
+  //   },
+  // ],
   // created by a user (username)
   uploadedBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Schema.ObjectId,
     ref: "User",
     required: [true, "Please provide the user who uploaded this prompt!"],
   },
