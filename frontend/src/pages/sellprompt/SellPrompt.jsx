@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import { useAuth } from "../../AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -40,21 +40,29 @@ function SellPrompt() {
   const handleSellPrompt = async (e) => {
     e.preventDefault();
     try {
+      // Get the file input element
+      const fileInput = document.getElementById("cover_image_input");
+      const coverImage = fileInput.files[0];
+
+      // Create a FormData object and append the file
+      const formData = new FormData();
+      formData.append("cover_image", coverImage);
+      // Append other form fields
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("type", type);
+      formData.append("price", price);
+      formData.append("prompt", prompt);
+      formData.append("engine", engine);
+      formData.append("tipsToUse", tipsToUse);
+      formData.append("uploadedBy", uploadedBy);
+
       const response = await axios.post(
         "http://localhost:4000/api/v1/prompts/create",
-        {
-          title,
-          description,
-          type,
-          price,
-          prompt,
-          engine,
-          tipsToUse,
-          uploadedBy,
-        },
+        formData,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
           withCredentials: true,
         }
@@ -104,7 +112,7 @@ function SellPrompt() {
           Upload Prompt Cover Image
         </label>
         <input
-          id="file_input"
+          id="cover_image_input"
           type="file"
           className="h-7 w-1/2 block  bg-slate-800 text-sm text-white border
                     border-gray-300 rounded-lg cursor-pointer bg-black dark:text-gray-400 focus:outline-none
@@ -206,7 +214,7 @@ function SellPrompt() {
           Upload Sample Images related your prompt
         </label>
         <input
-          id="file_input"
+          // id="file_input"
           type="file"
           className="h-7 w-1/2 block bg-black text-white text-sm border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white"
           multiple
