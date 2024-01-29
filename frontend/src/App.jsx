@@ -8,6 +8,7 @@ import Signup from "./pages/signup/Signup";
 import GeneratePrompt from "./pages/generateprompt/GeneratePrompt";import SellPrompt from "./pages/sellprompt/SellPrompt"
 import HireEngineerHome from "./pages/hire/HireEngineerHome";
 import MarketPlaceHome from "./pages/marketplace/MarketPlaceHome";
+import Notifications from "./pages/notifications/Notifications";
 
 
 const router = createBrowserRouter([
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/marketplace",
     element: <MarketPlaceHome />,
+  },
+  {
+    path: "/notifications",
+    element: <Notifications/>,
   }
 
 ])
