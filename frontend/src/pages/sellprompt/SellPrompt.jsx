@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/navbar/Navbar'
 import { useAuth } from '../../AuthContext'
+import { Link } from 'react-router-dom'
 
 function SellPrompt() {
 
@@ -11,7 +12,7 @@ function SellPrompt() {
                 <Navbar />
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                     <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl dark:text-white">
-                        Please Login to Sell a Prompt
+                        Please <Link to="/signin"><button><u>Login</u></button></Link> to Sell a Prompt
                     </h1>
                 </div>
             </div>
