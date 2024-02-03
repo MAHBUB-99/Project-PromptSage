@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import Searchbar from "../searchbar/Searchbar";
 import {
   Bars3Icon,
   BellIcon,
@@ -47,7 +48,7 @@ export default function Navbar() {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start ">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
                     <img
@@ -65,6 +66,7 @@ export default function Navbar() {
                     >
                       PromptSage
                     </Link>
+                    <Searchbar placeholderText={"Search"} buttonName={"btn"}/>
                     {updatedNavigation.map((item) => (
                       <Link
                         key={item.name}
@@ -84,7 +86,7 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <a href="/notifications">
+                <Link to="/notifications">
                 <button
                   type="button"
                   className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -93,7 +95,7 @@ export default function Navbar() {
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
-                </a>
+                </Link>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">

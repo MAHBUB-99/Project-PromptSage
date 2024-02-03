@@ -115,7 +115,7 @@ function SellPrompt() {
           id="cover_image_input"
           type="file"
           className="h-7 w-1/2 block  bg-slate-800 text-sm text-white border
-                    border-gray-300 rounded-lg cursor-pointer bg-black dark:text-gray-400 focus:outline-none
+                    border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none
                     dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white"
           // multiple accept="image/*"
         />
