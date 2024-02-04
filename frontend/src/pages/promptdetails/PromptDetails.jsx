@@ -6,12 +6,12 @@ import { useParams } from 'react-router-dom';
 
 function PromptDetails() {
   const [prompt, setPrompt] = useState(null);
-  const { promptId } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchPromptDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/v1/prompts/${promptId}`);
+        const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
         setPrompt(response.data.prompt);
       } catch (error) {
         console.error('Error fetching prompt details:', error);
@@ -19,7 +19,7 @@ function PromptDetails() {
     };
 
     fetchPromptDetails();
-  }, [promptId]);
+  }, [id]);
 
   if (!prompt) {
     return (
