@@ -125,6 +125,8 @@ export const getAllPrompts = catchAsyncError(async (req, res, next) => {
     sortField = "-createdAt"; // Sort by top prompts, modify as needed
   } else if (sort === "Newest") {
     sortField = "-createdAt"; // Sort by newest prompts
+  } else if (sort === "Oldest") {
+    sortField = "createdAt"; // Sort by oldest prompts
   }
   // Use the query to retrieve prompts
   const prompts = await Prompt.find(query).sort(sortField);
