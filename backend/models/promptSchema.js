@@ -74,6 +74,12 @@ const promptSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  // review: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: "Review",
+  //   },
+  // ],
 });
 
 export const Prompt = mongoose.model("Prompt", promptSchema);

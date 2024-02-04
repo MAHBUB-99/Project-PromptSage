@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 function PromptDetails() {
   const [prompt, setPrompt] = useState(null);
@@ -44,6 +44,7 @@ function PromptDetails() {
           <p className="text-white">{prompt.description}</p>
           {/* Add other prompt details as needed */}
         </div>
+        <Link to="/payment"><button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4">Buy Prompt</button></Link>
       </div>
     </div>
   );
