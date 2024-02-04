@@ -32,11 +32,14 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
   //     return next(new ErrorHandler("Please upload valid sample images", 400));
   //   }
   // }
-  const cloudinaryResponse = await cloudinary.uploader.upload(cover_image.tempFilePath, {
-    folder: "prompt/cover_image",
-    // width: 150,
-    // crop: "scale",
-  });
+  const cloudinaryResponse = await cloudinary.uploader.upload(
+    cover_image.tempFilePath,
+    {
+      folder: "prompt/cover_image",
+      // width: 150,
+      // crop: "scale",
+    }
+  );
   if (!cloudinaryResponse || cloudinaryResponse.error) {
     console.log(
       "Cloudinary Error: ",
@@ -89,7 +92,42 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
 });
 
 export const getAllPrompts = catchAsyncError(async (req, res, next) => {
-  const prompts = await Prompt.find();
+  // Destructuring query parameters with default values
+  const {
+    search = "",
+    type = "All",
+    engine = "All",
+    category = "All",
+    sort = "Top", // Default sort by top or newest prompt
+  } = req.query;
+
+  // Build the Mongoose query based on the provided parameters
+  const query = {};
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { description: { $regex: search, $options: "i" } },
+      // Add more fields for search as needed
+    ];
+  }
+  if (type !== "All") {
+    query.type = type;
+  }
+  if (engine !== "All") {
+    query.engine = engine;
+  }
+  if (category !== "All") {
+    // Assuming 'category' is a field in your schema
+    query.category = category;
+  }
+  let sortField;
+  if (sort === "Top") {
+    sortField = "-createdAt"; // Sort by top prompts, modify as needed
+  } else if (sort === "Newest") {
+    sortField = "-createdAt"; // Sort by newest prompts
+  }
+  // Use the query to retrieve prompts
+  const prompts = await Prompt.find(query).sort(sortField);
   res.status(200).json({
     success: true,
     prompts,
@@ -149,7 +187,6 @@ export const deletePrompt = catchAsyncError(async (req, res, next) => {
   });
 });
 
-
 export const getPromptById = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const prompt = await Prompt.findById(id);
@@ -161,4 +198,3 @@ export const getPromptById = catchAsyncError(async (req, res, next) => {
     prompt,
   });
 });
-
