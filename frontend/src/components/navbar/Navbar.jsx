@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import Searchbar from "../searchbar/Searchbar";
 import {
   Bars3Icon,
   BellIcon,
@@ -66,7 +65,6 @@ export default function Navbar() {
                     >
                       PromptSage
                     </Link>
-                    <Searchbar placeholderText={"Search"} buttonName={"btn"}/>
                     {updatedNavigation.map((item) => (
                       <Link
                         key={item.name}

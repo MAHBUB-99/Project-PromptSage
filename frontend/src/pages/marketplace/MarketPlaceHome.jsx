@@ -3,6 +3,7 @@ import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';
 import Filter from '../../components/filter/Filter';
+import Searchbar from '../../components/searchbar/Searchbar';
 
 function MarketPlaceHome() {
   const [prompts, setPrompts] = useState([]);
@@ -58,7 +59,8 @@ function MarketPlaceHome() {
       <Filter onFilterChange={handleFilterChange}/>
       <div className="flex flex-col items-center mt-5">
         {/* Introduction Section */}
-        <section className="text-center text-white mb-2">
+        <Searchbar onSearch={setSearch}/>
+        <section className="text-center text-white mb-2 mt-6">
           <h3 className="text-xl font-bold mb-4">Explore Prompts</h3>
         </section>
 
