@@ -98,7 +98,7 @@ export const getAllPrompts = catchAsyncError(async (req, res, next) => {
     type = "All",
     engine = "All",
     category = "All",
-    sort = "Top", // Default sort by top or newest prompt
+    sort = "Newest", // Default sort by top or newest prompt
   } = req.query;
 
   // Build the Mongoose query based on the provided parameters

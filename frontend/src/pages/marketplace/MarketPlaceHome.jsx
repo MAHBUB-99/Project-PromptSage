@@ -6,11 +6,18 @@ import Filter from '../../components/filter/Filter';
 
 function MarketPlaceHome() {
   const [prompts, setPrompts] = useState([]);
+  const [type, setType] = useState("All");
+  const [sort, setSort] = useState("Newest");
+  const [engine, setEngine] = useState("All");
+  const [category, setCategory] = useState("All");
+  const [search, setSearch] = useState('');
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/v1/prompts/all-prompts');
+        const url = `http://localhost:4000/api/v1/prompts/all-prompts/?type=${type}&sort=${sort}&engine=${engine}&category=${category}&search=${search}`;
+        const response = await axios.get(url);
         setPrompts(response.data.prompts);
       } catch (error) {
         console.error('Error fetching prompts:', error);
@@ -18,16 +25,37 @@ function MarketPlaceHome() {
     };
 
     fetchPrompts();
-  }, []);
+  }, [ type, sort, engine, category, search ]);
 
   const navigateToPromptDetails = (promptId) => {
     navigate(`/marketplace/${promptId}`);
   };
 
+  const handleFilterChange = (filterType, value) => {
+    // Update the corresponding state based on the filterType
+    switch (filterType) {
+      case "type":
+        setType(value);
+        break;
+      case "sort":
+        setSort(value);
+        break;
+      case "engine":
+        setEngine(value);
+        break;
+      case "category":
+        setCategory(value);
+        break;
+      // Add other cases if needed
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="bg-slate-900 min-h-[150vh]">
       <Navbar />
-      <Filter />
+      <Filter onFilterChange={handleFilterChange}/>
       <div className="flex flex-col items-center mt-5">
         {/* Introduction Section */}
         <section className="text-center text-white mb-2">
