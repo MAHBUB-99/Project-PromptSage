@@ -42,6 +42,18 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  boughtPrompts: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Prompt",
+    },
+  ],
+  soldPrompts: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Prompt",
+    },
+  ],
 });
 
 // Encrypting Password Before Saving User

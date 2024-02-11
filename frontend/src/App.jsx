@@ -52,7 +52,7 @@ const router = createBrowserRouter([
     element: <Notifications />,
   },
   {
-    path: "/payment",
+    path: "/buy-prompt/:id",
     element: <Payment />,
   },
   {

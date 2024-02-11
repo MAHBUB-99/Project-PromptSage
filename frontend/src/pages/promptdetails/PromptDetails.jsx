@@ -39,6 +39,9 @@ function PromptDetails() {
   const navigateEditPrompt = (promptid) => {
     navigate(`/edit-prompt/${promptid}`);
   };
+  const navigateBuyPrompt = (promptid) => {
+    navigate(`/buy-prompt/${promptid}`);
+  };
 
   return (
     <div className="bg-slate-900 h-screen">
@@ -59,7 +62,7 @@ function PromptDetails() {
 
         {isLoggedIn ? (
           prompt.uploadedBy !== user._id ? (
-            <div>
+            <div onClick={()=>navigateBuyPrompt(prompt._id)}>
               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4">
                 Buy Prompt
               </button>

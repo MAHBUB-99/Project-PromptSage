@@ -1,4 +1,5 @@
 import { Prompt } from "../models/promptSchema.js";
+import { User } from "../models/userSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import cloudinary from "cloudinary";
@@ -84,12 +85,16 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
     //   };
     // }),
   });
+  // add this prompt as the user's sold prompt
+  const user = await User.findById(uploadedBy);
+  user.soldPrompts.push(newPrompt);
+  await user.save();
+
   res.status(201).json({
     success: true,
     message: "Prompt created successfully",
     newPrompt,
   });
-  // console.log(newPrompt._id);
 });
 
 export const getAllPrompts = catchAsyncError(async (req, res, next) => {
