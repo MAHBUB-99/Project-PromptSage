@@ -14,6 +14,7 @@ import PromptDetails from "./pages/promptdetails/PromptDetails";
 import Payment from "./pages/payment/Payment";
 import EditPrompt from "./pages/editprompt/EditPrompt";
 import UserProfile from "./pages/profile/UserProfile";
+import EngineerProfile from "./pages/profile/EngineerProfile";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <UserProfile />,
+  },
+  {
+    path: "/engineer-profile",
+    element: <EngineerProfile />,
   }
 ]);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/navbar/Navbar';
 
-function UserProfile() {
+function EngineerProfile() {
     const samplePrompts = [
         { id: 1, name: 'Prompt 1', author: 'Author 1', best: true },
         { id: 2, name: 'Prompt 2', author: 'Author 2', best: false },
@@ -11,6 +11,11 @@ function UserProfile() {
         { id: 6, name: 'Prompt 6', author: 'Author 6', best: true },
         { id: 7, name: 'Prompt 7', author: 'Author 6', best: true },
         { id: 8, name: 'Prompt 8', author: 'Author 6', best: true },
+        { id: 1, name: 'Prompt 1', author: 'Author 1', best: true },
+        { id: 2, name: 'Prompt 2', author: 'Author 2', best: false },
+        { id: 3, name: 'Prompt 3', author: 'Author 3', best: true },
+        { id: 4, name: 'Prompt 4', author: 'Author 4', best: false },
+
     ];
 
     return (
@@ -29,9 +34,6 @@ function UserProfile() {
                     </div>
                     <div className="border-b border-gray-700 pb-2 mb-2">
                         <h2 className="text-lg font-semibold">Details</h2>
-                        <button className="text-sm text-gray-400 hover:text-white focus:outline-none ml-auto">
-                            Edit
-                        </button>
                     </div>
                     <div className="mt-4">
                         <div className="flex justify-between items-center mb-2">
@@ -65,9 +67,6 @@ function UserProfile() {
                     </div>
                     <div className="border-b border-gray-700 pb-2 mb-4 mt-">
                         <h2 className="text-lg font-semibold">Bio</h2>
-                        <button className="text-sm text-gray-400 hover:text-white focus:outline-none ml-auto">
-                            Edit
-                        </button>
                     </div>
                     <div className="mt-4">
                         <div className="flex justify-between items-center">
@@ -75,58 +74,49 @@ function UserProfile() {
                             <p className="text-sm">johndoe</p>
                         </div>
                     </div>
+                    <div className="flex justify-around mt-4">
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                            <span class="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                Follow
+                            </span>
+                        </button>     
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                            <span class="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            Hire
+                            </span>
+                        </button>
+                        <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                            <span class="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                            Chat
+                            </span>
+                        </button>                   
+                    </div>
                 </div>
 
 
                 <div className="flex flex-col w-full ml-4 mr-24">
                     {/* First Box */}
                     <div className="bg-slate-900 border rounded-lg p-8 md:p-8 max-w-full w-full text-white mb-4">
-                    <h2 className="text-lg font-semibold mb-4">My Prompts:</h2>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {samplePrompts.map((prompt) => (
-                            <div key={prompt.id} className="relative group">
-                                <div
-                                    style={{
-                                        backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8U80XAvqnq-qRc01c-OlQniEeKgIo8ZHqZx9bTKJf2rav8k0deO1rmry_ctGprnPoUB0)',
-                                    }}
-                                    className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
-                                >
-                                    <p className="text-white font-semibold text-sm">{prompt.name}</p>
-                                    {/* <p className="text-gray-300 text-xs">{prompt.author}</p> */}
+                        <h2 className="text-lg font-semibold mb-4">Top Prompts:</h2>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            {samplePrompts.map((prompt) => (
+                                <div key={prompt.id} className="relative group">
+                                    <div
+                                        style={{
+                                            backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8U80XAvqnq-qRc01c-OlQniEeKgIo8ZHqZx9bTKJf2rav8k0deO1rmry_ctGprnPoUB0)',
+                                        }}
+                                        className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
+                                    >
+                                        <p className="text-white font-semibold text-sm">{prompt.name}</p>
+                                    </div>
+                                    {/* Add onClick handler to navigate to prompt details */}
+                                    <div
+                                        className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
+                                    // onClick={() => navigateToPromptDetails(prompt.id)}
+                                    ></div>
                                 </div>
-                                {/* Add onClick handler to navigate to prompt details */}
-                                <div
-                                    className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                                // onClick={() => navigateToPromptDetails(prompt.id)}
-                                ></div>
-                            </div>
-                        ))}
-                    </div>
-
-                    </div>
-                    {/* Second Box */}
-                    <div className="bg-slate-900 border rounded-lg p-8 md:p-8 max-w-full w-full text-white">
-                                            <h2 className="text-lg font-semibold mb-4">Bought Prompts:</h2>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {samplePrompts.map((prompt) => (
-                            <div key={prompt.id} className="relative group">
-                                <div
-                                    style={{
-                                        backgroundImage: 'url(https://img.freepik.com/premium-photo/beautiful-majestic-eagle-ai-generative_863013-4999.jpg)',
-                                    }}
-                                    className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
-                                >
-                                    <p className="text-white font-semibold text-sm">{prompt.name}</p>
-                                    <p className="text-gray-300 text-xs">{prompt.author}</p>
-                                </div>
-                                {/* Add onClick handler to navigate to prompt details */}
-                                <div
-                                    className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                                // onClick={() => navigateToPromptDetails(prompt.id)}
-                                ></div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -134,4 +124,4 @@ function UserProfile() {
     );
 }
 
-export default UserProfile;
+export default EngineerProfile;
