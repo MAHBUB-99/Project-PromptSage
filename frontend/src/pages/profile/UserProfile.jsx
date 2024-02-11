@@ -18,16 +18,16 @@ function UserProfile() {
             <Navbar />
             <div className="flex justify-between p-6">
                 <div className="bg-slate-900 rounded-lg border ml-28 p-6 md:p-16 max-w-md w-full text-white">
-                    <div className="text-center mb-8">
+                    <div className="text-center mb-4">
                         <img
                             src="https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707609600&semt=sph"
                             alt="Profile"
-                            className="rounded-lg mx-auto mb-4"
+                            className="rounded-lg mx-auto mb-2"
                         />
                         <h1 className="text-3xl font-bold">John Doe</h1>
                         <p className="text-sm mt-2">Promot Engineer</p>
                     </div>
-                    <div className="border-b border-gray-700 pb-2 mb-4">
+                    <div className="border-b border-gray-700 pb-2 mb-2">
                         <h2 className="text-lg font-semibold">Details</h2>
                         <button className="text-sm text-gray-400 hover:text-white focus:outline-none ml-auto">
                             Edit
@@ -45,6 +45,22 @@ function UserProfile() {
                         <div className="flex justify-between items-center mb-2">
                             <p className="text-sm text-gray-400">Platform</p>
                             <p className="text-sm">DALL-E</p>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                            <p className="text-sm text-gray-400">Followers</p>
+                            <p className="text-sm">251</p>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                            <p className="text-sm text-gray-400">Following</p>
+                            <p className="text-sm">15</p>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                            <p className="text-sm text-gray-400">Rating</p>
+                            <p className="text-sm">4.8</p>
+                        </div>
+                        <div className="flex justify-between items-center mb-2">
+                            <p className="text-sm text-gray-400">Rank</p>
+                            <p className="text-sm">2</p>
                         </div>
                     </div>
                     <div className="border-b border-gray-700 pb-2 mb-4 mt-8">
