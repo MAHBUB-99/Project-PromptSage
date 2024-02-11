@@ -34,13 +34,19 @@ function PromptDetails() {
       </div>
     );
   }
-  // console.log(prompt.uploadedBy,"----" , user._id, isLoggedIn)
 
   const navigateEditPrompt = (promptid) => {
     navigate(`/edit-prompt/${promptid}`);
   };
-  const navigateBuyPrompt = (promptid) => {
-    navigate(`/buy-prompt/${promptid}`);
+  const navigateBuyPrompt = async (promptid) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/v1/payment/${promptid}`
+      );
+      window.location.replace(response.data.url);
+    } catch (error) {
+      console.error("Error fetching prompt details:", error);
+    }
   };
 
   return (
