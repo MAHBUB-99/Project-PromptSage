@@ -32,7 +32,7 @@ function Signin() {
       setEmail("");
       setPassword("");
       navigate("/");
-      login();
+      login(response.data.user);
     } catch (error) {
       toast.error("Signin Failed");
       // console.log(error);

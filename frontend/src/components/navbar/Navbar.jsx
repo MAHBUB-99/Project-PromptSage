@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import {
   Bars3Icon,
@@ -28,7 +28,14 @@ export default function Navbar() {
     }
     return { ...item, current: false };
   });
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate("/");
+  }
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -50,11 +57,18 @@ export default function Navbar() {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start ">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/">
-                    <img
-                      className="h-8 w-auto"
-                      src="src/assets/logo.png"
-                      alt="Your Company"
-                    />
+                    <Link to="/">
+                      <img
+                        className="block lg:hidden h-8 w-auto"
+                        src="https://res.cloudinary.com/dyur3oedl/image/upload/v1707643531/logo_frflfe.png"
+                        alt="Logo"
+                      />
+                      <img
+                        className="hidden lg:block h-8 w-auto"
+                        src="https://res.cloudinary.com/dyur3oedl/image/upload/v1707643531/logo_frflfe.png"
+                        alt="Logo"
+                      />
+                    </Link>
                   </Link>
                 </div>
                 <div className="hidden sm:ml-3 sm:block">
@@ -85,14 +99,14 @@ export default function Navbar() {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <Link to="/notifications">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                  <button
+                    type="button"
+                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
                 </Link>
 
                 {/* Profile dropdown */}
@@ -144,15 +158,15 @@ export default function Navbar() {
                           </Menu.Item>
                           <Menu.Item>
                             {({ active }) => (
-                              <Link
-                                to="/"
+                              <button
+                                onClick={handleLogout} // Call logout function on button click
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
                                 Sign out
-                              </Link>
+                              </button>
                             )}
                           </Menu.Item>
                         </>

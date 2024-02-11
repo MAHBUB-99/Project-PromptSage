@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, login, logout } from "../controller/user.js";
+import { createUser, login, logout, currentUser } from "../controller/user.js";
 import { isAuthorized } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/create", createUser);
 router.post("/login", login);
 router.get("/logout", isAuthorized, logout);
+router.get("/current", isAuthorized, currentUser)
 
 // GET /users
 // router.get('/users', (req, res) => {
