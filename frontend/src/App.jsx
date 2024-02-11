@@ -13,6 +13,7 @@ import Notifications from "./pages/notifications/Notifications";
 import PromptDetails from "./pages/promptdetails/PromptDetails";
 import Payment from "./pages/payment/Payment";
 import EditPrompt from "./pages/editprompt/EditPrompt";
+import UserProfile from "./pages/profile/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
     path: "/edit-prompt/:id",
     element: <EditPrompt />,
   },
+  {
+    path: "/profile",
+    element: <UserProfile />,
+  }
 ]);
 
 function App() {
