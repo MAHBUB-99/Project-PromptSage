@@ -17,7 +17,7 @@ function UserProfile() {
         <div className="bg-slate-900 min-h-screen">
             <Navbar />
             <div className="flex justify-between p-6">
-                <div className="bg-slate-900 rounded-lg border ml-32 p-6 md:p-16 max-w-md w-full text-white">
+                <div className="bg-slate-900 rounded-lg border ml-28 p-6 md:p-16 max-w-md w-full text-white">
                     <div className="text-center mb-8">
                         <img
                             src="https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?size=626&ext=jpg&ga=GA1.1.87170709.1707609600&semt=sph"
@@ -71,7 +71,7 @@ function UserProfile() {
                             <div key={prompt.id} className="relative group">
                                 <div
                                     style={{
-                                        backgroundImage: 'url(https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d)',
+                                        backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8U80XAvqnq-qRc01c-OlQniEeKgIo8ZHqZx9bTKJf2rav8k0deO1rmry_ctGprnPoUB0)',
                                     }}
                                     className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
                                 >
@@ -96,7 +96,7 @@ function UserProfile() {
                             <div key={prompt.id} className="relative group">
                                 <div
                                     style={{
-                                        backgroundImage: 'url(https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d)',
+                                        backgroundImage: 'url(https://img.freepik.com/premium-photo/beautiful-majestic-eagle-ai-generative_863013-4999.jpg)',
                                     }}
                                     className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
                                 >
