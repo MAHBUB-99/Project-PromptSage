@@ -11,6 +11,7 @@ import HireEngineerHome from "./pages/hire/HireEngineerHome";
 import MarketPlaceHome from "./pages/marketplace/MarketPlaceHome";
 import Notifications from "./pages/notifications/Notifications";
 import PromptDetails from "./pages/promptdetails/PromptDetails";
+import Cart from "./pages/payment/Cart";
 import Payment from "./pages/payment/Payment";
 import EditPrompt from "./pages/editprompt/EditPrompt";
 import UserProfile from "./pages/profile/UserProfile";
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
   {
     path: "/notifications",
     element: <Notifications />,
+  },
+  {
+    path: "/cart",
+    element: <Cart />,
   },
   {
     path: "/buy-prompt/:id",
