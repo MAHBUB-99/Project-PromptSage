@@ -25,10 +25,15 @@ function SellPrompt() {
       </div>
     );
   }
+  const categories = [
+    "Anime","Animal","Art","Building","Business","Cartoon","Celebrity","Fantasy","Fun","Games","Icons","Wallpaper","Writing",
+  ];
+  categories.sort();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
+  const [category, setCategory] = useState("");
   const [price, setPrice] = useState(0);
   const [prompt, setPrompt] = useState("");
   const [engine, setEngine] = useState("");
@@ -51,6 +56,7 @@ function SellPrompt() {
       formData.append("title", title);
       formData.append("description", description);
       formData.append("type", type);
+      formData.append("category", category);
       formData.append("price", price);
       formData.append("prompt", prompt);
       formData.append("engine", engine);
@@ -71,6 +77,7 @@ function SellPrompt() {
       setTitle("");
       setDescription("");
       setType("");
+      setCategory("");
       setPrice(0);
       setPrompt("");
       setEngine("");
@@ -99,7 +106,7 @@ function SellPrompt() {
           placeholder=""
           className="h-10 w-50 text-sm bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
-                    focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
+                    text-white transition duration-200 ease-in-out drop-shadow-2xl
                     "
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -133,7 +140,7 @@ function SellPrompt() {
           rows={4}
           className="h-22 w-50  text-sm  bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
-                    focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
+                    text-white transition duration-200 ease-in-out drop-shadow-2xl
                 "
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -158,6 +165,24 @@ function SellPrompt() {
           <option value="GPT">GPT</option>
           <option value="Midjourney">Midjourney</option>
           <option value="Stable Diffusion">Stable Diffusion</option>
+        </select>
+
+        <label for="category" className="block mt-2 mb-2 text-sm font-medium text-white">
+          Category
+        </label>
+
+        <select
+          id="category"
+          className="w-50 bg-slate-800 border border-gray-300 text-white text-sm rounded-lg focus:border-white block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-white"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option seleted value={null}>
+            Select Category
+          </option>
+          {categories.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
         </select>
 
         <label
@@ -201,13 +226,13 @@ function SellPrompt() {
           rows={4}
           className="h-22 w-50  text-sm  bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
-                    focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
+                    text-white transition duration-200 ease-in-out drop-shadow-2xl
                 "
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />
 
-        <label
+        {/* <label
           htmlFor="file_input"
           className="block mt-2 mb-2 text-sm font-medium text-white"
         >
@@ -219,7 +244,7 @@ function SellPrompt() {
           className="h-7 w-1/2 block bg-black text-white text-sm border border-gray-300 rounded-lg cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-white"
           multiple
           accept="image/*"
-        />
+        /> */}
 
         <label
           for="Engine"
@@ -254,7 +279,7 @@ function SellPrompt() {
           placeholder=""
           className="h-22 w-50  text-sm  bg-slate-800 border-2 rounded-lg  
                     border-white border-opacity-50 outline-none focus:border-white
-                    focus:text-white transition duration-200 ease-in-out drop-shadow-2xl
+                    text-white transition duration-200 ease-in-out drop-shadow-2xl
                 "
           value={tipsToUse}
           onChange={(e) => setTipsToUse(e.target.value)}

@@ -20,6 +20,10 @@ const promptSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please Enter Prompt Type!"],
   },
+  category: {
+    type: String,
+    required: [true, "Please Enter Prompt Category!"],
+  },
   price: {
     type: Number,
     required: [true, "Please Enter Prompt Price!"],

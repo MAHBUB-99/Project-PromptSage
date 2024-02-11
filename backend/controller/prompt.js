@@ -10,9 +10,9 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("You are not allowed to sell prompts", 400));
   }
 
-  const { title, description, type, price, prompt, engine, tipsToUse } =
+  const { title, description, type, category ,price, prompt, engine, tipsToUse } =
     req.body;
-  if (!title || !description || !type || !price || !prompt || !engine) {
+  if (!title || !description || !type || !category || !price || !prompt || !engine) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
   // if(!req.file || Object.keys(req.file).length === 0 ){
@@ -66,6 +66,7 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
     title,
     description,
     type,
+    category,
     price,
     prompt,
     engine,
