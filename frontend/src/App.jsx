@@ -13,6 +13,7 @@ import Notifications from "./pages/notifications/Notifications";
 import PromptDetails from "./pages/promptdetails/PromptDetails";
 import Cart from "./pages/payment/Cart";
 import Payment from "./pages/payment/Payment";
+import PaymentSuccessful from "./pages/payment/PaymentSuccesful";
 import EditPrompt from "./pages/editprompt/EditPrompt";
 import UserProfile from "./pages/profile/UserProfile";
 import EngineerProfile from "./pages/profile/EngineerProfile";
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: "/buy-prompt/:id",
     element: <Payment />,
+  },
+  {
+    path: "/payment-successful",
+    element: <PaymentSuccessful />,
   },
   {
     path: "/edit-prompt/:id",
