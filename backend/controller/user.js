@@ -3,7 +3,13 @@ import ErrorHandler from "../middlewares/error.js";
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import { sendToken } from "../utils/jwtToken.js";
 
-// Controller function to create a new user
+/**
+ * Controller function to create a new user
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const createUser = catchAsyncError(async (req, res, next) => {
   const { username, email, password, role } = req.body;
   if (!req.body.username || !req.body.email || !req.body.password) {
@@ -31,6 +37,15 @@ export const createUser = catchAsyncError(async (req, res, next) => {
   }
 });
 
+
+
+/**
+ * Controller function to authenticate user login
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const login = catchAsyncError(async (req, res, next) => {
   const { email, password, role } = req.body;
   if (!req.body.email || !req.body.password) {
@@ -47,6 +62,13 @@ export const login = catchAsyncError(async (req, res, next) => {
   sendToken(user, 200, res, "Login Successful");
 });
 
+/**
+ * Controller function to log out a user
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {void}
+ */
 export const logout = catchAsyncError(async (req, res, next) => {
   res.status(201).cookie("token", "", {
     httpOnly: true,
@@ -57,6 +79,14 @@ export const logout = catchAsyncError(async (req, res, next) => {
   });
 });
 
+
+/**
+ * Controller function to get current user details
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const currentUser = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user.id);
   res.status(200).json({
@@ -65,6 +95,14 @@ export const currentUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
+
+/**
+ * Controller function to add a bought prompt to user's profile
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const addBoughtPrompt = catchAsyncError(async (req, res, next) => {
   const { boughtBy, promptId } = req.body;
   const user = await User.findById(boughtBy);

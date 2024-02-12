@@ -4,7 +4,13 @@ import ErrorHandler from "../middlewares/error.js";
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import cloudinary from "cloudinary";
 
-// Controller function to create a new Prompt
+/**
+ * Controller function to create a new Prompt
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const createPrompt = catchAsyncError(async (req, res, next) => {
   const { role } = req.user;
   if (role === "admin") {
@@ -97,6 +103,13 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
   });
 });
 
+/**
+ * Controller function to get all prompts based on query parameters
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const getAllPrompts = catchAsyncError(async (req, res, next) => {
   // Destructuring query parameters with default values
   const {
@@ -142,6 +155,13 @@ export const getAllPrompts = catchAsyncError(async (req, res, next) => {
   });
 });
 
+/**
+ * Controller function to get prompts uploaded by the current user
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const getMyPrompts = catchAsyncError(async (req, res, next) => {
   const prompts = await Prompt.find({ uploadedBy: req.user._id });
   res.status(200).json({
@@ -150,6 +170,14 @@ export const getMyPrompts = catchAsyncError(async (req, res, next) => {
   });
 });
 
+
+/**
+ * Controller function to update a prompt
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const updatePrompt = catchAsyncError(async (req, res, next) => {
   const { role } = req.user;
   if (role === "admin") {
@@ -177,6 +205,14 @@ export const updatePrompt = catchAsyncError(async (req, res, next) => {
   });
 });
 
+
+/**
+ * Controller function to delete a prompt
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const deletePrompt = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   let prompt = await Prompt.findById(id);
@@ -195,6 +231,13 @@ export const deletePrompt = catchAsyncError(async (req, res, next) => {
   });
 });
 
+/**
+ * Controller function to get a prompt by its ID
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The next middleware function
+ * @returns {Promise<void>} - Promise representing the operation completion
+ */
 export const getPromptById = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const prompt = await Prompt.findById(id);
