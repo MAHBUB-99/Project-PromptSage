@@ -24,6 +24,36 @@ function PromptDetails() {
     fetchPromptDetails();
   }, [id, isLoggedIn]);
 
+  const updateUserData = async (boughtPromptId, user_id) => {
+    console.log(`Bought by=${boughtPromptId} ---- USER=${user_id}`)
+    try {
+      // Make API call to update user's data
+      await axios.post("http://localhost:4000/api/v1/users/buy", {
+        boughtBy: user_id,
+        promptId: boughtPromptId,
+      }, { timeout: 10000 });
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
+  };
+
+  const navigateBuyPrompt = async (promptid) => {
+    updateUserData(promptid, user._id);
+    try {
+      const response = await axios.post(
+        `http://localhost:4000/api/v1/payment/${promptid}`,
+        {
+          boughtPromptId: promptid,
+          user_id: user._id,
+        }
+      );
+       // Call updateUserData before redirecting
+      window.location.replace(response.data.url);
+    } catch (error) {
+      console.error("Error fetching prompt details:", error);
+    }
+  };
+
   if (!prompt) {
     return (
       <div className="bg-slate-900 h-screen">
@@ -34,20 +64,6 @@ function PromptDetails() {
       </div>
     );
   }
-
-  const navigateEditPrompt = (promptid) => {
-    navigate(`/edit-prompt/${promptid}`);
-  };
-  const navigateBuyPrompt = async (promptid) => {
-    try {
-      const response = await axios.post(
-        `http://localhost:4000/api/v1/payment/${promptid}`
-      );
-      window.location.replace(response.data.url);
-    } catch (error) {
-      console.error("Error fetching prompt details:", error);
-    }
-  };
 
   return (
     <div className="bg-slate-900 h-screen">
@@ -68,17 +84,12 @@ function PromptDetails() {
 
         {isLoggedIn ? (
           prompt.uploadedBy !== user._id ? (
-            <div onClick={()=>navigateBuyPrompt(prompt._id)}>
+            <div onClick={() => navigateBuyPrompt(prompt._id)}>
               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4">
                 Buy Prompt
               </button>
             </div>
           ) : (
-            // <div onClick={() => navigateEditPrompt(prompt._id)}>
-            //   <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4">
-            //     Edit Prompt
-            //   </button>
-            // </div>
             <></>
           )
         ) : (

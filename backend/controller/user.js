@@ -65,6 +65,21 @@ export const currentUser = catchAsyncError(async (req, res, next) => {
   });
 });
 
+export const addBoughtPrompt = catchAsyncError(async (req, res, next) => {
+  const { boughtBy, promptId } = req.body;
+  const user = await User.findById(boughtBy);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  user.boughtPrompts.push(promptId);
+  await user.save();
+  res.status(201).json({
+    success: true,
+    message: "Prompt successfully added to user's bought prompts",
+  });
+});
+
+
 // // Controller function to get all users
 // const getUsers = async (req, res) => {
 //     try {

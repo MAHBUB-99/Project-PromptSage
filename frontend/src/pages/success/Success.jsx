@@ -1,6 +1,29 @@
+import { useState, useEffect } from "react";
 import Navbar from "../../components/navbar/Navbar";
+import axios from "axios";
+import { useAuth } from "../../AuthContext";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function Success() {
+  // const { boughtPromptId, user_id } = useParams();
+  // useEffect(() => {
+  //   const updateUserData = async () => {
+  //     try {
+  //       console.log(`USER: ${user_id} and PROMPT: ${boughtPromptId}`)
+  //       // Make API call to update user's data
+  //       await axios.post("http://localhost:4000/api/v1/users/buy", {
+  //         boughtBy: user_id,
+  //         promptId: boughtPromptId,
+  //       });
+  //     } catch (error) {
+  //       console.error("Error updating user data:", error);
+  //     }
+  //   };
+
+  //   // Call the function to update user data when the component mounts
+  //   updateUserData();
+  // }, []);
+
   return (
     <div className="max-h-full max-w-full bg-slate-900 pb-10">
       <Navbar />
