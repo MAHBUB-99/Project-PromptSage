@@ -15,6 +15,7 @@ import PromptDetails from "./pages/promptdetails/PromptDetails";
 import Cart from "./pages/payment/Cart";
 import Payment from "./pages/payment/Payment";
 import PaymentSuccessful from "./pages/payment/PaymentSuccesful";
+import ViewPaymentHistory from "./pages/payment/ViewPaymentHistory";
 import AdminViewTransactionHistory from "./pages/admin/admin-transaction-history/AdminViewTransactionHistory";
 import EditPrompt from "./pages/editprompt/EditPrompt";
 import UserProfile from "./pages/profile/UserProfile";
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
   {
     path: "/payment-successful",
     element: <PaymentSuccessful />,
+  },
+  {
+    path: "/payment-history",
+    element: <ViewPaymentHistory />,
   },
   {
     path: "/admin-transaction-history",
