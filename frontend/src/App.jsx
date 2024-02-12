@@ -7,6 +7,7 @@ import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
 import GeneratePrompt from "./pages/generateprompt/GeneratePrompt";
 import SellPrompt from "./pages/sellprompt/SellPrompt";
+import AdminApproval from "./pages/admin/admin-appoval-prompts/AdminApproval";
 import HireEngineerHome from "./pages/hire/HireEngineerHome";
 import MarketPlaceHome from "./pages/marketplace/MarketPlaceHome";
 import Notifications from "./pages/notifications/Notifications";
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/sellprompt",
     element: <SellPrompt />,
+  },
+  {
+    path: "/admin-approval",
+    element: <AdminApproval />,
+
   },
   {
     path: "/hire",
@@ -83,7 +89,8 @@ const router = createBrowserRouter([
   {
     path: "/discussion",
     element: <Discussion />,
-  }
+  },
+
 ]);
 
 function App() {
