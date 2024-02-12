@@ -15,6 +15,7 @@ const navigation = [
   { name: "Hire", to: "/hire", current: false },
   { name: "Sell", to: "/sellprompt", current: false },
   { name: "Discussion", to: "/discussion", current: false },
+  { name: "Cart", to:"/cart" , current: FileSystemWritableFileStream}
 ];
 
 function classNames(...classes) {
