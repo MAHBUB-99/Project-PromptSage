@@ -63,7 +63,7 @@ function GeneratePrompt() {
 
         <img
           className="mt-5 max-w-full h-auto rounded-lg"
-          src="https://example.com/your-image.jpg"  // Replace with the actual image URL
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRViW48an-NWrdfa7jQJIUrwggBFmeFDvxKSS-dnyXbXYQK6-w1bwf0KPYJ16PrviIMfbw"  // Replace with the actual image URL
           alt="Sample Image"
         />
 
