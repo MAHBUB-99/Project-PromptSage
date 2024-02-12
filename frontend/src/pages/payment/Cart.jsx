@@ -1,9 +1,9 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 
 function Cart() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const prompts = [
         { id: 1, title: 'Prompt 1', description: 'Description of Prompt 1', price: 10, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8U80XAvqnq-qRc01c-OlQniEeKgIo8ZHqZx9bTKJf2rav8k0deO1rmry_ctGprnPoUB0' },
@@ -13,12 +13,12 @@ function Cart() {
 
     const handleBuyClick = () => {
         // Redirect to payment page
-        history.push('/payment');
+        navigate('/payment');
     };
 
     const handlePromptClick = (id) => {
         // Redirect to specific prompt details page
-        history.push(`/prompt/${id}`);
+        navigate(`/prompt/${id}`);
     };
 
     return (
