@@ -7,31 +7,30 @@ function UserProfile() {
     const { user } = useAuth();
     const [boughtPrompts, setBoughtPrompts] = useState([]);
     const [soldPrompts, setSoldPrompts] = useState([]);
-    const boughtPromptIds = user.boughtPrompts;
-    const soldPromptIds = user.soldPrompts;
 
-    useEffect(() => {
-        const fetchPrompts = async () => {
-            try {
-                const boughtPromptsData = [];
-                for (const id of boughtPromptIds) {
-                    const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
-                    boughtPromptsData.push(response.data.prompt);
-                }
-                setBoughtPrompts(boughtPromptsData);
-
-                const soldPromptsData = [];
-                for (const id of soldPromptIds) {
-                    const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
-                    soldPromptsData.push(response.data.prompt);
-                }
-                setSoldPrompts(soldPromptsData);
-            } catch (error) {
-                console.error("Error fetching prompt details:", error);
+useEffect(() => {
+    const fetchPrompts = async () => {
+        try {
+            const boughtPromptsData = [];
+            for (const id of user.boughtPrompts) {
+                const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
+                boughtPromptsData.push(response.data.prompt);
             }
-        };
-        fetchPrompts();
-    }, [boughtPromptIds, soldPromptIds]);
+            setBoughtPrompts(boughtPromptsData);
+
+            const soldPromptsData = [];
+            for (const id of user.soldPrompts) {
+                const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
+                soldPromptsData.push(response.data.prompt);
+            }
+            setSoldPrompts(soldPromptsData);
+        } catch (error) {
+            console.error("Error fetching prompt details:", error);
+        }
+    };
+    fetchPrompts();
+}, [user.boughtPrompts, user.soldPrompts]);
+
 
     return (
         <div className="bg-slate-900 min-h-screen">
