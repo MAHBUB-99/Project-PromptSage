@@ -6,6 +6,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 import userRoute from "./routes/userRoute.js";
 import promptRoute from "./routes/promptRoute.js";
 import paymentRoute from "./routes/paymentRoute.js";
+import generateRoute from "./routes/generateRoute.js";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
@@ -34,6 +35,7 @@ app.use(
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/prompts", promptRoute);
 app.use("/api/v1/payment", paymentRoute);
+app.use("/api/v1/generate", generateRoute);
 
 dbConnection();
 

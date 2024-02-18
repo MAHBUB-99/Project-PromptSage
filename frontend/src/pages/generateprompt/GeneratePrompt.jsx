@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/navbar/Navbar';
+import axios from 'axios';
 
 function GeneratePrompt() {
   const [searchResult, setSearchResult] = useState('');
+  const [promptTopic, setPromptTopic] = useState('');
+  const [generatedImage, setGeneratedImage] = useState('');
 
-  const handleGenerate = (result) => {
-    setSearchResult(result);
+  const handleGenerate = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/api/v1/generate", {
+        prompt: promptTopic
+      });
+      setSearchResult(response.data); // Assuming the response contains the generated result
+      setGeneratedImage(response.data.image); // Set the generated image URL
+    } catch (error) {
+      console.error("Error generating prompt:", error);
+    }
+  };
+
+  const handlePromptChange = (event) => {
+    setPromptTopic(event.target.value);
   };
 
   return (
@@ -43,12 +58,14 @@ function GeneratePrompt() {
               id="generate"
               className="mt-0 block w-full p-4 ps-10 text-sm text-white border border-gray-300 rounded-lg bg-slate-900 focus:ring-blue-500 focus:border-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Prompt Topic"
+              value={promptTopic}
+              onChange={handlePromptChange}
               required
             />
             <button
-              type="submit"
+              type="button" // Change to type="button" to prevent form submission
               className="text-white absolute shadow-xl end-2.5 bottom-2.5 bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={() => handleGenerate("Generated Result")} // Sample result for demonstration
+              onClick={handleGenerate}
             >
               Generate
             </button>
@@ -58,14 +75,17 @@ function GeneratePrompt() {
         <textarea
           className="w-full mt-5 rounded-lg bg-slate-900 border max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl"
           rows={5}
+          value={searchResult}
           disabled
         />
 
-        <img
-          className="mt-5 max-w-full h-auto rounded-lg"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRViW48an-NWrdfa7jQJIUrwggBFmeFDvxKSS-dnyXbXYQK6-w1bwf0KPYJ16PrviIMfbw"  // Replace with the actual image URL
-          alt="Sample Image"
-        />
+        {generatedImage && (
+          <img
+            className="mt-5 max-w-full h-auto rounded-lg"
+            src={generatedImage}
+            alt="Generated Image"
+          />
+        )}
 
       </div>
     </div>
