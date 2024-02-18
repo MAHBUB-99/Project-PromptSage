@@ -59,7 +59,9 @@ function PromptDetails() {
   };
 
   const handleAddToCart = () => {
-    // Handle add to cart
+    // navigate to add to cart page
+    // navigate(`/cart/add/${id}`);
+    navigate(`/cart/`);
   };
 
   const navigateToEngineerProfile = (id) => {
