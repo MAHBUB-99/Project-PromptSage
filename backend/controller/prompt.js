@@ -206,3 +206,34 @@ export const getPromptById = catchAsyncError(async (req, res, next) => {
     prompt,
   });
 });
+
+export const likePrompt = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const prompt = await Prompt.findById(id);
+  if (!prompt) {
+    return next(new ErrorHandler("Oops! Prompt not found", 404));
+  }
+
+  const userId = req.user._id;
+
+  // Check if the user has already liked the prompt
+  if (prompt.likes.some(like => like.equals(userId))) {
+    return next(new ErrorHandler("You have already liked this prompt", 400));
+  }
+
+  // Add the user's id to the likes array
+  prompt.likes.push(userId);
+
+  // Update the likes count
+  prompt.likesCount = prompt.likes.length;
+
+  // Save the updated prompt
+  await prompt.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Prompt liked successfully------------",
+  });
+});
+
+

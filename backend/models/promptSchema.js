@@ -10,7 +10,7 @@ const promptSchema = new mongoose.Schema({
     minLength: [6, "Prompt Title Must Be Longer Than 6 Characters!"],
     maxLength: [40, "Prompt Title Cannot Exceed 40 Characters!"],
   },
-  description:{
+  description: {
     type: String,
     required: [true, "Please Enter Prompt Description!"],
     minLength: [6, "Prompt Description Must Be Longer Than 20 Characters!"],
@@ -55,6 +55,15 @@ const promptSchema = new mongoose.Schema({
       required: true,
     },
   },
+  likes: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+  }],
+
+  likesCount: {
+    type: Number,
+    default: 0
+  },
   // sample_images: [
   //   {
   //     public_id: {
@@ -73,18 +82,18 @@ const promptSchema = new mongoose.Schema({
     ref: "User",
     required: [true, "Please provide the user who uploaded this prompt!"],
   },
-  
+
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  review: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: "Review",
-      required: false,
-    },
-  ],
+  // review: [
+  //   {
+  //     type: mongoose.Schema.ObjectId,
+  //     ref: "Review",
+  //     required: false,
+  //   },
+  // ],
 });
 
 export const Prompt = mongoose.model("Prompt", promptSchema);
