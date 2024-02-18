@@ -65,7 +65,7 @@ function MarketPlaceHome() {
         </section>
 
         {/* Marketplace Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div className="ml-24 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {prompts.map((prompt) => (
             <div key={prompt._id} className="relative group">
 
@@ -73,15 +73,17 @@ function MarketPlaceHome() {
                 style={{
                   backgroundImage: `url(${prompt.cover_image.url})`,
                   backgroundSize: 'cover', // Ensures the background image covers the entire container
-                  backgroundPosition: 'center' // Centers the background image within the container
+                  backgroundPosition: 'center', // Centers the background image within the container
+                  width: '220px', // Set the width of the container
+                  height: '120px' // Set the height of the container
                 }}
-                className="bg-gradient-to-b rounded-lg from-slate-600 to-slate-900 p-4 h-32 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105 relative"
+                className="bg-gradient-to-b rounded-lg  from-slate-600 to-slate-900 p-4 h-32 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105 relative"
                 onClick={() => navigateToPromptDetails(prompt.id)}
               >
                 <p className="text-white font-semibold">{prompt.title}</p>
                 <p className="text-gray-300 text-sm">{prompt.engine}</p>
               </div>
-              
+
               {/* Add onClick handler to navigate to prompt details */}
               <div
                 className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
