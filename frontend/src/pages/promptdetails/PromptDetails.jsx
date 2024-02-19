@@ -22,37 +22,40 @@ function PromptDetails() {
         const { prompt } = response.data;
         setPrompt(prompt);
         setLikeCount(prompt.likesCount); // Update like count from the backend response
+
+        // Check if the user has already liked the prompt
+        if (prompt.likes.includes(user._id)) {
+          setIsLiked(true);
+        } else {
+          setIsLiked(false);
+        }
       } catch (error) {
         console.error("Error fetching prompt details:", error);
       }
     };
     fetchPromptDetails();
-  }, [id]);
+  }, [id, user._id, likeCount]);
 
   const handleLike = async () => {
-    if (!isLoggedIn) {
-      // Handle not logged in
-      return;
-    }
-
     try {
       const response = await axios.post(
         `http://localhost:4000/api/v1/prompts/like/${id}`,
-        {},
+        null,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
         }
       );
-      if (response.status === 200) {
+      if (response.data.success) {
         setIsLiked(true);
-        setLikeCount(prevCount => prevCount + 1);
+        setLikeCount(likeCount + 1);
       }
     } catch (error) {
       console.error("Error liking prompt:", error);
     }
   };
+  
 
   const navigateBuyPrompt = () => {
     // Navigate to buy prompt page
@@ -98,7 +101,7 @@ function PromptDetails() {
               <h2 className="text-white text-lg font-semibold mb-1">{prompt.title}</h2>
               {/* Like Button */}
               <div className="flex items-center justify-between text-gray-300">
-                <p>Likes: {prompt.likesCount}</p>
+                <p>Likes: {likeCount}</p>
                 <button
                   onClick={handleLike}
                   className={`bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-3 rounded-lg hover:from-red-700 transition-colors duration-300 flex items-center ${isLiked ? 'animate-pulse' : ''}`}
@@ -163,7 +166,7 @@ function PromptDetails() {
               className="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 relative"
               onClick={() => navigateToEngineerProfile(engineer.id)}
             >
-              <div className="absolute p-6 bottom-0 left-0 w-full  bg-black bg-opacity-50 rounded-b-lg p-2">
+              <div className="absolute p-6 bottom-0 left-0 w-full  bg-black bg-opacity-50 rounded-b-lg">
                 <h2 className="text-white text-lg font-semibold mb-2">Arif Faisal</h2>
                 <p className="text-gray-300">DALL-E</p>
 
