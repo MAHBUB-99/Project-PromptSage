@@ -1,10 +1,10 @@
 const reviewSchema = new mongoose.Schema({
-    review: {
-        type: String,
-        required: [true, "Please provide a review!"],
-        minLength: [6, "Review Must Be Longer Than 6 Characters!"],
-        maxLength: [500, "Review Cannot Exceed 500 Characters!"],
-    },
+    // review: {
+    //     type: String,
+    //     required: [true, "Please provide a review!"],
+    //     minLength: [6, "Review Must Be Longer Than 6 Characters!"],
+    //     maxLength: [500, "Review Cannot Exceed 500 Characters!"],
+    // },
     reviewer: {
         type: mongoose.Schema.ObjectId,
         ref: "User",
@@ -24,13 +24,13 @@ const reviewSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: "User",
         },
-    ],
-    dislikes: [
-        {
-            type: mongoose.Schema.ObjectId,
-            ref: "User",
-        },
-    ],
+    ]
+    // dislikes: [
+    //     {
+    //         type: mongoose.Schema.ObjectId,
+    //         ref: "User",
+    //     },
+    // ],
 });
 
 export const Review = mongoose.model("Review", reviewSchema);
