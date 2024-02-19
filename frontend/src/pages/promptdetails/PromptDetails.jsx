@@ -9,7 +9,7 @@ function PromptDetails() {
   const { isLoggedIn, user } = useAuth();
   const [prompt, setPrompt] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(0); // Updated state for like count
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function PromptDetails() {
         );
         const { prompt } = response.data;
         setPrompt(prompt);
-        setLikeCount(prompt.likes);
+        setLikeCount(prompt.likesCount); // Update like count from the backend response
       } catch (error) {
         console.error("Error fetching prompt details:", error);
       }
@@ -37,7 +37,7 @@ function PromptDetails() {
 
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/v1/prompts/${id}/like`,
+        `http://localhost:4000/api/v1/prompts/like/${id}`,
         {},
         {
           headers: {
@@ -56,6 +56,7 @@ function PromptDetails() {
 
   const navigateBuyPrompt = () => {
     // Navigate to buy prompt page
+    navigate(`/buy-prompt/${id}`);
   };
 
   const handleAddToCart = () => {
@@ -97,13 +98,14 @@ function PromptDetails() {
               <h2 className="text-white text-lg font-semibold mb-1">{prompt.title}</h2>
               {/* Like Button */}
               <div className="flex items-center justify-between text-gray-300">
-                <p>Likes: {likeCount}</p>
+                <p>Likes: {prompt.likesCount}</p>
                 <button
                   onClick={handleLike}
                   className={`bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-3 rounded-lg hover:from-red-700 transition-colors duration-300 flex items-center ${isLiked ? 'animate-pulse' : ''}`}
                 >
-                  <FaHeart className={`mr-1 ${isLiked ? 'text-red-500' : ''}`} /> Like
+                  <FaHeart className={`mr-1 ${isLiked ? 'text-red-500' : ''}`} />
                 </button>
+
               </div>
             </div>
           </div>
@@ -116,7 +118,7 @@ function PromptDetails() {
           {/* Price and Buttons */}
           <div className="lg:w-full bg-slate-900 p-2 rounded-lg shadow-lg mb-4">
             <div className="flex justify-between items-center">
-              <p className="text-white mb-2">Price: $6.00</p>
+              <p className="text-white mb-2">Price: {prompt.price}$</p>
               <div className="flex flex-wrap gap-4 lg:gap-2">
                 <button
                   onClick={navigateBuyPrompt}

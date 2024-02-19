@@ -16,6 +16,8 @@ function Home() {
 
   const navigateToEngineerProfile = (engineerId) => {
     // Implement navigation logic to engineer profile page
+    // navigate to engineer profile page
+    navigate('/engineer-profile')
     console.log(`Navigate to engineer profile for engineer ID ${engineerId}`);
   };
 

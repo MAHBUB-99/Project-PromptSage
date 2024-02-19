@@ -1,104 +1,73 @@
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-export default function HeroFinTech() {
-  return (
-    <>
-      <Navbar />
-      <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
+export default function Payment() {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  // Correct usage of useState
+  const [prompt, setPrompt] = useState(null);
+
+  useEffect(() => {
+    const fetchPromptDetails = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/api/v1/prompts/${id}`
+        );
+        const { prompt } = response.data;
+        setPrompt(prompt);
+      } catch (error) {
+        console.error("Error fetching prompt details:", error);
+      }
+    };
+    fetchPromptDetails();
+  }, [id]);
+
+
+  const handlePayment = async () => {
+    navigate("/payment-successful");
+
+  };
+
+  // Render loading if prompt is null
+  if (!prompt) {
+    return (
+      <div className="bg-slate-900 min-h-screen">
+        <Navbar />
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-white">Loading...</p>
+        </div>
       </div>
-      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
-        <div className="px-4 pt-8">
-          <p className="text-xl font-medium">Order Summary</p>
-          <p className="text-gray-400">
-            Check your items. And select a suitable shipping method.
-          </p>
-          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-            <div className="flex flex-col rounded-lg bg-white sm:flex-row">
+    );
+  }
+
+  // Once prompt is loaded, render the payment details
+  return (
+    <div className="bg-slate-900 min-h-screen">
+      <Navbar />
+
+      <div className="flex flex-col items-center bg-slate-900 py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-20">
+        <div className="w-full sm:w-1/2 ml-16 p-2 bg-slate-900 border rounded-lg mr-8">
+          <div className="rounded-lg  px-2 py-4 sm:px-6">
+            <div className="flex flex-col rounded-lg  sm:flex-row">
               <img
                 className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                src="https://images.unsplash.com/flagged/photo-1556637640-2c80d3201be8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+                src={prompt.cover_image.url}
                 alt=""
               />
               <div className="flex w-full flex-col px-4 py-4">
-                <span className="font-semibold">
-                  Nike Air Max Pro 8888 - Super Light
+                <span className="font-semibold text-white">
+                  {prompt.title}
                 </span>
-                <span className="float-right text-gray-400">42EU - 8.5US</span>
-                <p className="text-lg font-bold">$138.99</p>
-              </div>
-            </div>
-            <div className="flex flex-col rounded-lg bg-white sm:flex-row">
-              <img
-                className="m-2 h-24 w-28 rounded-md border object-cover object-center"
-                src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                alt=""
-              />
-              <div className="flex w-full flex-col px-4 py-4">
-                <span className="font-semibold">
-                  Nike Air Max Pro 8888 - Super Light
-                </span>
-                <span className="float-right text-gray-400">42EU - 8.5US</span>
-                <p className="mt-auto text-lg font-bold">$238.99</p>
+                <span className="float-right text-gray-400 text-white">{prompt.type}</span>
+                <p className="mt-auto text-lg font-bold text-white">${prompt.price}</p>
               </div>
             </div>
           </div>
-          <p className="mt-8 text-lg font-medium">Shipping Methods</p>
-          <form className="mt-5 grid gap-6">
-            <div className="relative">
-              <input
-                className="peer hidden"
-                id="radio_1"
-                type="radio"
-                name="radio"
-                defaultChecked=""
-              />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
-              <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
-                htmlFor="radio_1"
-              >
-                <img
-                  className="w-14 object-contain"
-                  src="/images/naorrAeygcJzX0SyNI4Y0.png"
-                  alt=""
-                />
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">Fedex Delivery</span>
-                  <p className="text-slate-500 text-sm leading-6">
-                    Delivery: 2-4 Days
-                  </p>
-                </div>
-              </label>
-            </div>
-            <div className="relative">
-              <input
-                className="peer hidden"
-                id="radio_2"
-                type="radio"
-                name="radio"
-                defaultChecked=""
-              />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white" />
-              <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
-                htmlFor="radio_2"
-              >
-                <img
-                  className="w-14 object-contain"
-                  src="/images/oG8xsl3xsOkwkMsrLGKM4.png"
-                  alt=""
-                />
-                <div className="ml-5">
-                  <span className="mt-2 font-semibold">Fedex Delivery</span>
-                  <p className="text-slate-500 text-sm leading-6">
-                    Delivery: 2-4 Days
-                  </p>
-                </div>
-              </label>
-            </div>
-          </form>
         </div>
-        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+
+        <div className="w-full sm:w-1/2 mt-10 mr-8 bg-slate-900 border rounded-lg px-4 pt-8 lg:mt-0 text-white">
           <p className="text-xl font-medium">Payment Details</p>
           <p className="text-gray-400">
             Complete your order by providing your payment details.
@@ -243,27 +212,19 @@ export default function HeroFinTech() {
               />
             </div>
             {/* Total */}
-            <div className="mt-6 border-t border-b py-2">
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                <p className="font-semibold text-gray-900">$399.00</p>
-              </div>
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-gray-900">Shipping</p>
-                <p className="font-semibold text-gray-900">$8.00</p>
-              </div>
-            </div>
+
             <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Total</p>
-              <p className="text-2xl font-semibold text-gray-900">$408.00</p>
+              <p className="text-sm font-medium text-white">Total</p>
+              <p className="text-m font-semibold text-white">$4.00</p>
             </div>
           </div>
-          <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
-            Place Order
-          </button>
-        </div>
-      </div>
-    </>
 
+          <button className="mt-4 mb-8 w-full rounded-md bg-black px-6 py-3 font-medium text-white hover:bg-gradient-to-br from-yellow-500 to-red-500 hover:text-black" onClick={(e) => {handlePayment();}}>
+            Complete Payment
+          </button>
+
+        </div>
+      </div >
+    </div>
   );
 }

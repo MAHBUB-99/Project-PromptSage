@@ -13,7 +13,7 @@ function Cart() {
 
     const handleBuyClick = () => {
         // Redirect to payment page
-        navigate('/payment');
+        navigate('/buy-prompt/:id');
     };
 
     const handlePromptClick = (id) => {
