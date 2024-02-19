@@ -11,6 +11,8 @@ function Home() {
   const [category, setCategory] = useState("All");
   const [search, setSearch] = useState('');
 
+  const navigate = useNavigate();
+
   const handleGenerate = (result) => {
     setSearchResult(result);
   };
@@ -31,7 +33,7 @@ function Home() {
 
 
   const navigateToPromptDetails = (promptId) => {
-    // Implement navigation logic to prompt details page
+    navigate(`/marketplace/${promptId}`);
     console.log(`Navigate to prompt details for prompt ID ${promptId}`);
   };
 
@@ -101,6 +103,7 @@ function Home() {
             ))}
           </div>
         </form> */}
+
         {/* Top Popular prompt Section */}
         <div className="ml-24"> {/* Use margin-left to move the section to the right */}
           <h2 className="text-2xl font-semibold text-white mb-2">Popular Prompts:</h2> {/* Move the title here */}
