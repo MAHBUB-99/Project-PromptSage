@@ -1,7 +1,9 @@
 import { User } from "../models/userSchema.js";
+import { Prompt } from "../models/promptSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import { sendToken } from "../utils/jwtToken.js";
+import { Conversation } from "../models/conversationSchema.js";
 
 /**
  * Controller function to create a new user
@@ -37,8 +39,6 @@ export const createUser = catchAsyncError(async (req, res, next) => {
   }
 });
 
-
-
 /**
  * Controller function to authenticate user login
  * @param {object} req - The request object
@@ -70,15 +70,17 @@ export const login = catchAsyncError(async (req, res, next) => {
  * @returns {void}
  */
 export const logout = catchAsyncError(async (req, res, next) => {
-  res.status(201).cookie("token", "", {
-    httpOnly: true,
-    expires: new Date(Date.now()),
-  }).json({
-    success: true,
-    message: "Logged out",
-  });
+  res
+    .status(201)
+    .cookie("token", "", {
+      httpOnly: true,
+      expires: new Date(Date.now()),
+    })
+    .json({
+      success: true,
+      message: "Logged out",
+    });
 });
-
 
 /**
  * Controller function to get current user details
@@ -88,13 +90,12 @@ export const logout = catchAsyncError(async (req, res, next) => {
  * @returns {Promise<void>} - Promise representing the operation completion
  */
 export const currentUser = catchAsyncError(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user._id);
   res.status(200).json({
     success: true,
     user,
   });
 });
-
 
 /**
  * Controller function to add a bought prompt to user's profile
@@ -123,72 +124,31 @@ export const getUser = catchAsyncError(async (req, res, next) => {
   if (!user) {
     return next(new ErrorHandler("User not found", 404));
   }
-  
+
   res.status(200).json({
     success: true,
-    data: user
+    data: user,
   });
 });
 
+export const getUsersForChatSidebar = catchAsyncError(async (req, res, next) => {
+  const loggedInUserId = req.user._id;
 
-// // Controller function to get all users
-// const getUsers = async (req, res) => {
-//     try {
-//         const users = await User.find();
-//         res.status(200).json(users);
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// };
+  // Find conversations where the logged-in user is a participant
+  const conversations = await Conversation.find({ participants: loggedInUserId });
 
-// // Controller function to get a specific user by ID
-// const getUserById = async (req, res) => {
-//     try {
-//         const user = await User.findById(req.params.id);
-//         if (!user) {
-//             res.status(404).json({ error: 'User not found' });
-//         } else {
-//             res.status(200).json(user);
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// };
+  // Extract user IDs from conversations
+  const participantIds = conversations.flatMap(conversation => conversation.participants);
 
-// // Controller function to update a specific user by ID
-// const updateUserById = async (req, res) => {
-//     try {
-//         const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
-//             new: true,
-//         });
-//         if (!updatedUser) {
-//             res.status(404).json({ error: 'User not found' });
-//         } else {
-//             res.status(200).json(updatedUser);
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// };
+  // Remove duplicates and the logged-in user's ID
+  let filteredUserIds = [...new Set(participantIds)];
+  filteredUserIds = filteredUserIds.filter(id => id.toString() !== loggedInUserId.toString());
 
-// // Controller function to delete a specific user by ID
-// const deleteUserById = async (req, res) => {
-//     try {
-//         const deletedUser = await User.findByIdAndDelete(req.params.id);
-//         if (!deletedUser) {
-//             res.status(404).json({ error: 'User not found' });
-//         } else {
-//             res.status(200).json({ message: 'User deleted successfully' });
-//         }
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// };
+  // Find users based on filtered IDs
+  const filteredUsers = await User.find({ _id: { $in: filteredUserIds } });
 
-// module.exports = {
-//     createUser,
-//     getUsers,
-//     getUserById,
-//     updateUserById,
-//     deleteUserById,
-// };
+  res.status(200).json({
+    loggedInUserId: loggedInUserId,
+    data: filteredUsers,
+  });
+});

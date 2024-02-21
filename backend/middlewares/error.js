@@ -23,7 +23,7 @@ export const errorMiddleware = (err, req, res, next) => {
   err.message = err.message || "Internal Server Error";
 
   if (err.name === "CastError") {
-    const message = `Resource not found. Invalid ${err.path}`;
+    const message = `. Invalid ${err.path}`;
     err = new ErrorHandler(message, 400);
   }
   if (err.name === "11000") {
