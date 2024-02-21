@@ -22,6 +22,7 @@ import UserProfile from "./pages/profile/UserProfile";
 import EngineerProfile from "./pages/profile/EngineerProfile";
 import Discussion from "./pages/discussion/Discussion";
 import Success from "./pages/success/Success";
+import Chats from "./pages/chats/Chats";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
         <Route path="/engineer-profile" element={<EngineerProfile />} />
         <Route path="/discussion" element={<Discussion />} />
         <Route path="/payment-success" element={<Success />} />
+        <Route path="/chats" element={<Chats />} />
       </Routes>
     </Router>
   );
