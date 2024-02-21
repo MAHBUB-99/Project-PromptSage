@@ -72,16 +72,16 @@ function GeneratePrompt() {
           </div>
         </form>
 
-        <textarea
+        {/* <textarea
           className="w-full mt-5 rounded-lg bg-slate-900 border max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl"
           rows={5}
           value={searchResult}
           disabled
-        />
+        /> */}
 
         {generatedImage && (
           <img
-            className="mt-5 max-w-full h-auto rounded-lg"
+            className="w-96 h-96 mt-5 max-w-full rounded-lg"
             src={generatedImage}
             alt="Generated Image"
           />

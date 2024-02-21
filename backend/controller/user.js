@@ -117,6 +117,19 @@ export const addBoughtPrompt = catchAsyncError(async (req, res, next) => {
   });
 });
 
+export const getUser = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await User.findById(id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  
+  res.status(200).json({
+    success: true,
+    data: user
+  });
+});
+
 
 // // Controller function to get all users
 // const getUsers = async (req, res) => {

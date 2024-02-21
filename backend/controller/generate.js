@@ -5,19 +5,19 @@ import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import cloudinary from "cloudinary";
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-  apiKey: "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"
-});
 
 export const generateImage = catchAsyncError(async (req, res, next) => {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
   const { prompt } = req.body;
   const aiResponse = await openai.images.generate({
     prompt: prompt,
   });
-    const image = aiResponse.data[0].url;
-    // console.log(image);
-    res.status(200).json({
-      success: true,
-      image
-    });
+  const image = aiResponse.data[0].url;
+  // console.log(image);
+  res.status(200).json({
+    success: true,
+    image,
+  });
 });

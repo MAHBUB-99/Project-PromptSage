@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, login, logout, currentUser, addBoughtPrompt } from "../controller/user.js";
+import { createUser, login, logout, currentUser, addBoughtPrompt, getUser } from "../controller/user.js";
 import { isAuthorized } from "../middlewares/auth.js";
 
 const router = express.Router();
@@ -10,6 +10,7 @@ router.post("/login", login);
 router.get("/logout", isAuthorized, logout);
 router.get("/current", isAuthorized, currentUser);
 router.post("/buy", addBoughtPrompt);
+router.get("/:id", getUser);
 
 // GET /users
 // router.get('/users', (req, res) => {

@@ -11,6 +11,7 @@ export const payPrompt = catchAsyncError(async (req, res, next) => {
   // const { boughtPromptId, user_id } = req.body;
   // console.log(`prompt=${boughtPromptId} --- user=${user_id}`)
   const store_id = process.env.SSLCOMMERZ_STORE_ID;
+  console.log("Storeeeeeeeeeeeeeeee",store_id);
   const store_passwd = process.env.SSLCOMMERZ_STORE_PASSWORD;
   const is_live = false; //true for live, false for sandbox
   const tran_id = new ObjectId().toString();
