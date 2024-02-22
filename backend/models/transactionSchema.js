@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'; // Import mongoose
+
 const transactionSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
@@ -16,15 +18,7 @@ const transactionSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-    },
-    type: {
-        type: String,
-        required: [true, "Please provide the type of this transaction!"],
-    },
-    status: {
-        type: String,
-        required: [true, "Please provide the status of this transaction!"],
-    },
+    }
 });
 
 export const Transaction = mongoose.model("Transaction", transactionSchema);
