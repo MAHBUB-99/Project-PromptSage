@@ -9,7 +9,7 @@ router.get("/all-prompts", getAllPrompts);
 router.get("/my-prompts", isAuthorized, getMyPrompts);
 router.put("/update/:id", isAuthorized, updatePrompt);
 router.delete("/delete/:id", isAuthorized, deletePrompt);
-router.get("/:id", getPromptById);
 router.post("/like/:id",isAuthorized,likePrompt);
+router.get("/:id", getPromptById);
 
 export default router;
