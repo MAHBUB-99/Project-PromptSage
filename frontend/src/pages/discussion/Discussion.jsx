@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlinePicture } from 'react-icons/ai';
 import Navbar from '../../components/navbar/Navbar';
+import axios from 'axios';
 
 function Discussion() {
     const [postContent, setPostContent] = useState('');
+    const [posts, setPosts] = useState([]);
     const [imagePreview, setImagePreview] = useState(null);
     const [selectedImage, setSelectedImage] = useState(null);
     const [upvoteCount, setUpvoteCount] = useState(0);
     const [downvoteCount, setDownvoteCount] = useState(0);
     const [comment, setComment] = useState('');
+
+    useEffect(() => {
+        axios.get('http://localhost:4000/api/v1/discussions')
+            .then(response => {
+                setPosts(response.data.discussions);
+            })
+            .catch(error => {
+                console.error('Error fetching posts:', error);
+            });
+
+    }, []);
 
     const handlePostContentChange = (e) => {
         setPostContent(e.target.value);
@@ -30,6 +43,19 @@ function Discussion() {
         // Handle posting logic, including the image caption
         console.log('Post content:', postContent);
         console.log('Selected image:', selectedImage);
+
+        const formData = new FormData();
+        formData.append('postContent', postContent);
+        // formData.append('image', selectedImage);
+
+        axios.post('http://localhost:4000/api/v1/discussions/create', formData)
+            .then(response => {
+                console.log('Post created successfully:', response.data);
+                // Optionally, reset the form fields or perform any other actions
+            })
+            .catch(error => {
+                console.error('Error creating post:', error);
+            });
     };
 
     const handleUpvote = () => {
@@ -89,99 +115,53 @@ function Discussion() {
                         </div>
 
 
-
-                        <div className="border mt-20 border-white p-4 rounded-md min-h-[5rem]">
-                            <div className="flex items-center mb-2">
-                                <p className="text-white font-semibold mr-2">Username</p>
-                            </div>
-                            <div className="bg-gray-300 h-0.5 w-full mb-2"></div>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis urna vitae mauris varius, et facilisis lacus ultrices. Ut nec odio in magna dictum posuere. Sed rhoncus lacinia dolor, id eleifend nunc sollicitudin vel. Vivamus nec quam non tortor sollicitudin suscipit. Nam vitae ex auctor, molestie eros non, consectetur libero. Vestibulum nec rhoncus velit.</p>
-                            <div className="bg-gray-300 h-0.5 w-full mt-2"></div>
-                            <div className="flex mt-2">
-                                <div className="flex">
-                                    <button
-                                        className="mr-2 relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleUpvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Upvote ({upvoteCount})
-                                        </span>
-                                    </button>
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleDownvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Downvote ({downvoteCount})
-                                        </span>
-                                    </button>
+                        {posts.map(post => (
+                            <div key={post._id} className="border mt-20 border-white p-4 rounded-md min-h-[5rem]">
+                                <div className="flex items-center mb-2">
+                                    <p className="text-white font-semibold mr-2">Arif Faisal</p>
                                 </div>
-                                <div className="ml-auto flex">
-                                    <input
-                                        type="text"
-                                        className="border border-white text-white rounded-md px-2 py-1 mr-2 bg-gray-800 focus:outline-none focus:border-pink-500"
-                                        placeholder="Enter your comment"
-                                        value={comment}
-                                        onChange={handleCommentChange}
-                                    />
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleComment}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Comment
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="border mt-10 mb-10 border-white p-4 rounded-md min-h-[5rem]">
-                            <div className="flex items-center mb-2">
-                                <p className="text-white font-semibold mr-2">Username</p>
-                            </div>
-                            <div className="bg-gray-300 h-0.5 w-full mb-2"></div>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis urna vitae mauris varius, et facilisis lacus ultrices. Ut nec odio in magna dictum posuere. Sed rhoncus lacinia dolor, id eleifend nunc sollicitudin vel. Vivamus nec quam non tortor sollicitudin suscipit. Nam vitae ex auctor, molestie eros non, consectetur libero. Vestibulum nec rhoncus velit.</p>
-                            <div className="bg-gray-300 h-0.5 w-full mt-2"></div>
-                            <div className="flex mt-2">
-                                <div className="flex">
-                                    <button
-                                        className="mr-2 relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleUpvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Upvote ({upvoteCount})
-                                        </span>
-                                    </button>
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleDownvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Downvote ({downvoteCount})
-                                        </span>
-                                    </button>
-                                </div>
-                                <div className="ml-auto flex">
-                                    <input
-                                        type="text"
-                                        className="border border-white text-white rounded-md px-2 py-1 mr-2 bg-gray-800 focus:outline-none focus:border-pink-500"
-                                        placeholder="Enter your comment"
-                                        value={comment}
-                                        onChange={handleCommentChange}
-                                    />
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleComment}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Comment
-                                        </span>
-                                    </button>
+                                <div className="bg-gray-300 h-0.5 w-full mb-2"></div>
+                                <p className="text-white">{post.postContent}</p>
+                                <div className="bg-gray-300 h-0.5 w-full mt-2"></div>
+                                <div className="flex mt-2">
+                                    <div className="flex">
+                                        <button
+                                            className="mr-2 relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                                            onClick={handleUpvote}
+                                        >
+                                            <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                Upvote ({upvoteCount})
+                                            </span>
+                                        </button>
+                                        <button
+                                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                                            onClick={handleDownvote}
+                                        >
+                                            <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                Downvote ({downvoteCount})
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div className="ml-auto flex">
+                                        <input
+                                            type="text"
+                                            className="border border-white text-white rounded-md px-2 py-1 mr-2 bg-gray-800 focus:outline-none focus:border-pink-500"
+                                            placeholder="Enter your comment"
+                                            value={comment}
+                                            onChange={handleCommentChange}
+                                        />
+                                        <button
+                                            className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                                            onClick={handleComment}
+                                        >
+                                            <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                                Comment
+                                            </span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        ))}
 
                     </div>
                 </div>

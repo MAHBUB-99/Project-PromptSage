@@ -5,6 +5,9 @@ import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import userRoute from "./routes/userRoute.js";
 import promptRoute from "./routes/promptRoute.js";
+// import discussionRoute from "./routes/discussionRoute.js";
+
+
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
 
@@ -33,6 +36,7 @@ app.use(
 
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/prompts", promptRoute);
+// app.use("/api/v1/discussions", discussionRoute);
 
 dbConnection();
 

@@ -158,7 +158,7 @@ function Home() {
                 {/* Add onClick handler to navigate to engineer profile */}
                 <div
                   className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                // onClick={() => navigateToEngineerProfile(engineer.id)}
+                onClick={() => navigateToEngineerProfile(engineer.id)}
                 ></div>
               </div>
             ))}
@@ -189,7 +189,7 @@ function Home() {
                 {/* Add onClick handler to navigate to engineer profile */}
                 <div
                   className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                // onClick={() => navigateToEngineerProfile(engineer.id)}
+                onClick={() => navigateToEngineerProfile(engineer.id)}
                 ></div>
               </div>
             ))}
@@ -219,7 +219,7 @@ function Home() {
                 {/* Add onClick handler to navigate to engineer profile */}
                 <div
                   className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                // onClick={() => navigateToEngineerProfile(engineer.id)}
+                onClick={() => navigateToEngineerProfile(engineer.id)}
                 ></div>
               </div>
             ))}
