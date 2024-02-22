@@ -6,6 +6,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 import userRoute from "./routes/userRoute.js";
 import promptRoute from "./routes/promptRoute.js";
 import discussionRoute from "./routes/discussionRoute.js";
+import cartRoute from "./routes/cartRoute.js";
 
 
 import cookieParser from "cookie-parser";
@@ -37,6 +38,7 @@ app.use(
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/prompts", promptRoute);
 app.use("/api/v1/discussions", discussionRoute);
+app.use("/api/v1/cart",cartRoute);
 
 dbConnection();
 
