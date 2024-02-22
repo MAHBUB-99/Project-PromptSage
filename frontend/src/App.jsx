@@ -21,6 +21,7 @@ import EditPrompt from "./pages/editprompt/EditPrompt";
 import UserProfile from "./pages/profile/UserProfile";
 import EngineerProfile from "./pages/profile/EngineerProfile";
 import Discussion from "./pages/discussion/Discussion";
+import BoughtPromptDetails from "./pages/promptdetails/BoughtPromptDetails";
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: "/marketplace/:id",
     element: <PromptDetails />,
+  },
+  {
+    path: "/bought-prompt/:id",
+    element: <BoughtPromptDetails />,
   },
   {
     path: "/notifications",
