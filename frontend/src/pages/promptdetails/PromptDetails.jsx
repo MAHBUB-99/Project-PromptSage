@@ -9,8 +9,8 @@ function PromptDetails() {
   const { isLoggedIn, user } = useAuth();
   const [prompt, setPrompt] = useState(null);
   const [isLiked, setIsLiked] = useState(false);
-  const [uploadedBy, setUploadedBy] = useState({}); // Updated state for uploadedBy
-  const [likeCount, setLikeCount] = useState(0); // Updated state for like count
+  const [uploadedBy, setUploadedBy] = useState({});
+  const [likeCount, setLikeCount] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -22,9 +22,8 @@ function PromptDetails() {
         );
         const { prompt } = response.data;
         setPrompt(prompt);
-        setLikeCount(prompt.likesCount); // Update like count from the backend response
+        setLikeCount(prompt.likesCount);
 
-        // Check if the user has already liked the prompt
         if (prompt.likes.includes(user._id)) {
           setIsLiked(true);
         } else {
@@ -56,7 +55,11 @@ function PromptDetails() {
   const handleLike = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/v1/prompts/like/${id}`
+        `http://localhost:4000/api/v1/prompts/like/${id}`, 
+        {}, // Empty data object if no request body is needed
+        {
+          withCredentials: true,
+        }
       );
       if (response.data.success) {
         setIsLiked(true);
@@ -124,22 +127,26 @@ function PromptDetails() {
             <div className="flex justify-between items-center">
               <p className="text-white mb-2">Price: {prompt.price}$</p>
               <div className="flex flex-wrap gap-4 lg:gap-2">
-                <button
-                  onClick={navigateBuyPrompt}
-                  className="flex items-center justify-center p-0.5 mt-2 mb-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-amber-500 to-rose-600 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
-                >
-                  <span className="relative px-10 py-2.5 transition-all ease-in duration-75 bg-slate-800 text-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                    Get Prompt
-                  </span>
-                </button>
-                <button
-                  onClick={handleAddToCart}
-                  className="flex items-center justify-center p-0.5 mt-2 mb-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-amber-500 to-rose-600 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
-                >
-                  <span className="relative px-10 py-2.5 transition-all ease-in duration-75 bg-slate-800 text-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                    Add to Cart
-                  </span>
-                </button>
+                {!isLoggedIn || user._id !== prompt.uploadedBy && (
+                  <>
+                    <button
+                      onClick={navigateBuyPrompt}
+                      className="flex items-center justify-center p-0.5 mt-2 mb-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-amber-500 to-rose-600 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+                    >
+                      <span className="relative px-10 py-2.5 transition-all ease-in duration-75 bg-slate-800 text-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        Get Prompt
+                      </span>
+                    </button>
+                    <button
+                      onClick={handleAddToCart}
+                      className="flex items-center justify-center p-0.5 mt-2 mb-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-amber-500 to-rose-600 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+                    >
+                      <span className="relative px-10 py-2.5 transition-all ease-in duration-75 bg-slate-800 text-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                        Add to Cart
+                      </span>
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>
