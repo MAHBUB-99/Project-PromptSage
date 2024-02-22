@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 // Dummy data for top-rated engineers
 const topRatedEngineers = [
-  { id: 1, name: 'John Doe', imageUrl: 'https://example.com/john.jpg' },
-  { id: 2, name: 'Jane Smith', imageUrl: 'https://example.com/jane.jpg' },
-  { id: 3, name: 'Bob Wilson', imageUrl: 'https://example.com/bob.jpg' },
-  { id: 4, name: 'Alice Johnson', imageUrl: 'https://example.com/alice.jpg' },
-  { id: 5, name: 'Charlie Brown', imageUrl: 'https://example.com/charlie.jpg' },
-  { id: 6, name: 'Diana Miller', imageUrl: 'https://example.com/diana.jpg' },
+  { id: 1, name: 'John Doe', imageUrl: 'https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d' },
+  { id: 2, name: 'Jane Smith', imageUrl: 'https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d' },
+  { id: 3, name: 'Bob Wilson', imageUrl: 'https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d' },
+  { id: 4, name: 'Alice Johnson', imageUrl: 'https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d' },
+  { id: 5, name: 'Charlie Brown', imageUrl: 'https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d' },
+  { id: 6, name: 'Diana Miller', imageUrl: 'https://img.freepik.com/free-photo/white-notebook-black-data-firewall_1150-1733.jpg?w=900&t=st=1706515656~exp=1706516256~hmac=cf8699dfe1843ed04a53830e9d1b6b11d37451a03bf65a21b476391beeb92a9d' },
 ];
 
 function HireEngineerHome() {

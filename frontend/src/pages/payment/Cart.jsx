@@ -13,12 +13,12 @@ function Cart() {
 
     const handleBuyClick = () => {
         // Redirect to payment page
-        navigate('/buy-prompt/:id');
+        navigate('/buy-prompt/65d160b57a28dacd08c7d05e');
     };
 
     const handlePromptClick = (id) => {
         // Redirect to specific prompt details page
-        navigate(`/prompt/${id}`);
+        navigate(`/marketplace/65d160b57a28dacd08c7d05e`);
     };
 
     return (
