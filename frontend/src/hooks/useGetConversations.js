@@ -10,14 +10,21 @@ const useGetConversations = () => {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:4000/api/v1/users/chats");
-        const data = await res.json();
-        if(data.error) {
-          throw new Error(data.error);
-        }
-        setConversations(data);
+        const res = await axios.get("http://localhost:4000/api/v1/users/chats", {
+          withCredentials: true, // Include cookies
+        });
+        setConversations(res.data);
       } catch (err) {
-        toast.error(err.response.data.message);
+        if (err.response) {
+          // The request was made and the server responded with a status code
+          toast.error(err.response.data.message);
+        } else if (err.request) {
+          // The request was made but no response was received
+          toast.error("No response received from the server");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          toast.error("Error in sending the request");
+        }
       } finally {
         setLoading(false);
       }

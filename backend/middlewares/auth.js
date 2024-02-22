@@ -14,7 +14,7 @@ import { User } from "../models/userSchema.js";
 export const isAuthorized = catchAsyncError(async (req, res, next) => {
   const { token } = req.cookies;
   if (!token) {
-    return next(new ErrorHandler("User not authorized", 400));
+    return next(new ErrorHandler("User not authorized/ token not found", 400));
   }
   const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
   if (!decoded) {
