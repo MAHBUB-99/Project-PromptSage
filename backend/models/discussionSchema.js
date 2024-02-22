@@ -16,16 +16,19 @@ const discussionSchema = new mongoose.Schema({
     //     type: Number, 
     //     default: 0 
     // },
-    // comments: [{
-    //     commenter: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    //     content: {
-    //         type: String,
-    //         required: true,
-    //         minlength: [2, 'Comment content must be at least 2 characters long'],
-    //         maxlength: [100, 'Comment content cannot exceed 100 characters']
-    //     },
-    //     createdAt: { type: Date, default: Date.now }
-    // }],
+    comments: [{
+        // commenter: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+        content: {
+            type: String,
+            required: true,
+            minlength: [2, 'Comment content must be at least 2 characters long'],
+            maxlength: [100, 'Comment content cannot exceed 100 characters']
+        },
+        createdAt: { 
+            type: Date, 
+            default: Date.now 
+        }
+    }],
     // uploadedBy: {
     //     type: mongoose.Schema.ObjectId,
     //     ref: "User",

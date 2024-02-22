@@ -3,7 +3,7 @@ import { Discussion } from '../models/discussionSchema.js';
 export const createDiscussion = async (req, res) => {
     try {
         // Extract necessary data from the request body
-        const { postContent} = req.body;
+        const { postContent,comments } = req.body;
         // const uploadedBy = req.user._id;
 
         // Create a new discussion instance
@@ -12,7 +12,7 @@ export const createDiscussion = async (req, res) => {
             // image,
             // upvotes,
             // downvotes,
-            // comments,
+            comments,
             // uploadedBy
         });
 

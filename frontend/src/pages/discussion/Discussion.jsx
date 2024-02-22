@@ -69,11 +69,35 @@ function Discussion() {
     const handleCommentChange = (e) => {
         setComment(e.target.value);
     };
+    const handleComment = (postId) => {
+        // Assuming comment is stored in the comment state
+        const newComment = { content: comment };
 
-    const handleComment = () => {
-        // Handle comment logic
-        console.log('Comment:', comment);
+        // Make PUT request to add comment to the post
+        axios.put(`http://localhost:4000/api/v1/discussions/update/${postId}`, newComment)
+            .then(response => {
+                console.log('Comment added successfully:', response.data);
+                // Optionally, update the UI to reflect the newly added comment
+                // For example, you can fetch the updated post data and set it in the state
+                // Or you can directly update the state with the new comment
+                setPosts(prevPosts => {
+                    const updatedPosts = prevPosts.map(post => {
+                        if (post._id === postId) {
+                            return {
+                                ...post,
+                                comments: [...post.comments, response.data.comment]
+                            };
+                        }
+                        return post;
+                    });
+                    return updatedPosts;
+                });
+            })
+            .catch(error => {
+                console.error('Error adding comment:', error);
+            });
     };
+
 
     return (
         <div className='bg-slate-900 min-h-screen'>
@@ -152,16 +176,34 @@ function Discussion() {
                                         />
                                         <button
                                             className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                            onClick={handleComment}
+                                            onClick={() => handleComment(post._id)}
                                         >
                                             <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
                                                 Comment
                                             </span>
                                         </button>
+
                                     </div>
                                 </div>
+                                {post.comments && (
+                                    <div className="text-white mt-4 border-t border-white pt-4">
+                                        <h3 className="text-white">Comments:</h3>
+                                        {post.comments.map((commentItem, index) => (
+                                            <div key={index} className="mt-2">
+                                                <p>{commentItem?.content}</p>
+                                                <p className="text-gray-400 text-xs">{commentItem?.createdAt ? new Date(commentItem.createdAt).toLocaleString() : ''}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+
+
+
+
                             </div>
                         ))}
+
+
 
                     </div>
                 </div>
