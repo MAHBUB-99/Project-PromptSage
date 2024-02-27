@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Filter = ({ onFilterChange }) => {
   const types = [
@@ -26,11 +26,10 @@ const Filter = ({ onFilterChange }) => {
     "Wallpaper",
     "Writing",
   ];
-  categories.sort();
-  types.sort();
-
-//   const types = ["All", "Image", "Text"];
   const sortByOptions = ["Top", "Newest", "Oldest"];
+
+  // Define price range options
+  const priceRangeOptions = ["All", "0-1", "2-3", "4-5"];
 
   const handleFilterChange = (filterType, value) => {
     onFilterChange(filterType, value);
@@ -68,20 +67,21 @@ const Filter = ({ onFilterChange }) => {
         ))}
       </div>
 
-      {/* <div className="mb-4">
-        <h1 className="text-white mb-2">Engine</h1>
-        {engines.map((engine) => (
-          <label key={engine} className="flex items-center text-white">
+      {/* Price Range */}
+      <div className="mb-4">
+        <h1 className="text-white mb-2">Price Range</h1>
+        {priceRangeOptions.map((range) => (
+          <label key={range} className="flex items-center text-white">
             <input
-              type="checkbox"
-              name="Engine"
-              value={engine}
-              onChange={() => handleFilterChange("engine", engine)}
+              type="radio"
+              name="PriceRange"
+              value={range}
+              onChange={() => handleFilterChange("priceRange", range)}
             />{" "}
-            <span className="ml-2">{engine}</span>
+            <span className="ml-2">{range}</span>
           </label>
         ))}
-      </div> */}
+      </div>
 
       <div>
         <h1 className="text-white mb-2">Category</h1>

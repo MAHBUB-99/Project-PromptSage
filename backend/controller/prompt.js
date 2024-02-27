@@ -118,6 +118,7 @@ export const getAllPrompts = catchAsyncError(async (req, res, next) => {
     engine = "All",
     category = "All",
     sort = "Newest", // Default sort by top or newest prompt
+    priceRange = "All",
   } = req.query;
 
   // Build the Mongoose query based on the provided parameters
@@ -138,6 +139,11 @@ export const getAllPrompts = catchAsyncError(async (req, res, next) => {
   if (category !== "All") {
     // Assuming 'category' is a field in your schema
     query.category = category;
+  }
+  if (priceRange !== "All") {
+    // Assuming 'price' is a field in your schema
+    const [minPrice, maxPrice] = priceRange.split("-");
+    query.price = { $gte: minPrice, $lte: maxPrice };
   }
   let sortField;
   if (sort === "Top") {
