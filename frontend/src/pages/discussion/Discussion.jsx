@@ -1,52 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlinePicture } from 'react-icons/ai';
 import Navbar from '../../components/navbar/Navbar';
+import axios from 'axios';
 
 function Discussion() {
-    const [postContent, setPostContent] = useState('');
-    const [imagePreview, setImagePreview] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [upvoteCount, setUpvoteCount] = useState(0);
-    const [downvoteCount, setDownvoteCount] = useState(0);
-    const [comment, setComment] = useState('');
+    const [topic, setTopic] = useState('');
+    const [description, setDescription] = useState('');
+    const [discussions, setDiscussions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [searchTopic, setSearchTopic] = useState('');
 
-    const handlePostContentChange = (e) => {
-        setPostContent(e.target.value);
+    useEffect(() => {
+        const fetchDiscussions = async () => {
+            setIsLoading(true);
+            try {
+                let url = 'http://localhost:4000/api/v1/discussions/all';
+                if (searchTopic) {
+                    url += `?topic=${searchTopic}`;
+                }
+                const response = await axios.get(url);
+                setDiscussions(response.data.data);
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error fetching discussions:', error);
+                setIsLoading(false);
+            }
+        };
+
+        fetchDiscussions();
+    }, [searchTopic]);
+
+    const handleTopicChange = (e) => {
+        setTopic(e.target.value);
     };
 
-    const handleImageUpload = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setSelectedImage(file);
-                setImagePreview(reader.result);
-            };
-            reader.readAsDataURL(file);
+    const handleDescriptionChange = (e) => {
+        setDescription(e.target.value);
+    };
+
+    const handlePost = async () => {
+        try {
+            const response = await axios.post('http://localhost:4000/api/v1/discussions/create', {
+                topic,
+                description,
+            });
+            setDiscussions([...discussions, response.data.data]);
+            setTopic('');
+            setDescription('');
+        } catch (error) {
+            console.error('Error posting discussion:', error);
         }
     };
 
-    const handlePost = () => {
-        // Handle posting logic, including the image caption
-        console.log('Post content:', postContent);
-        console.log('Selected image:', selectedImage);
-    };
-
-    const handleUpvote = () => {
-        setUpvoteCount(upvoteCount + 1);
-    };
-
-    const handleDownvote = () => {
-        setDownvoteCount(downvoteCount + 1);
-    };
-
-    const handleCommentChange = (e) => {
-        setComment(e.target.value);
-    };
-
-    const handleComment = () => {
-        // Handle comment logic
-        console.log('Comment:', comment);
+    const handleSearch = () => {
+        setSearchTopic(topic);
     };
 
     return (
@@ -59,24 +66,21 @@ function Discussion() {
                             <h1 className="text-4xl font-bold text-white mb-4 text-center">
                                 <span className="bg-gradient-to-r from-pink-500 to-orange-400 bg-clip-text text-transparent">Discussion</span>
                             </h1>
-                            <div className="relative border-b border-white mb-4 flex items-center justify-between">
-                                <textarea
-                                    className="w-full h-28 bg-gray-800 text-white p-2 rounded-tl rounded-tr"
-                                    placeholder="Write your post here..."
-                                    value={postContent}
-                                    onChange={handlePostContentChange}
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    className="w-full bg-gray-800 text-white p-2 rounded-tl rounded-tr"
+                                    placeholder="Topic"
+                                    value={topic}
+                                    onChange={handleTopicChange}
                                 />
-                                <label className="absolute right-0 bottom-0 mb-2 mr-2 cursor-pointer text-white">
-                                    <input type="file" className="hidden" onChange={handleImageUpload} />
-                                    <AiOutlinePicture className="w-6 h-6" />
-                                </label>
+                                <textarea
+                                    className="w-full h-28 bg-gray-800 text-white p-2 rounded-bl rounded-br"
+                                    placeholder="Description"
+                                    value={description}
+                                    onChange={handleDescriptionChange}
+                                />
                             </div>
-                            {imagePreview && (
-                                <div className="mb-4">
-                                    <img src={imagePreview} alt="Selected" className="w-64 h-64 object-cover rounded-md mb-2" />
-                                </div>
-                            )}
-
                             <button
                                 className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 float-right"
                                 onClick={handlePost}
@@ -85,104 +89,36 @@ function Discussion() {
                                     Post
                                 </span>
                             </button>
-
                         </div>
 
-
-
-                        <div className="border mt-20 border-white p-4 rounded-md min-h-[5rem]">
-                            <div className="flex items-center mb-2">
-                                <p className="text-white font-semibold mr-2">Username</p>
-                            </div>
-                            <div className="bg-gray-300 h-0.5 w-full mb-2"></div>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis urna vitae mauris varius, et facilisis lacus ultrices. Ut nec odio in magna dictum posuere. Sed rhoncus lacinia dolor, id eleifend nunc sollicitudin vel. Vivamus nec quam non tortor sollicitudin suscipit. Nam vitae ex auctor, molestie eros non, consectetur libero. Vestibulum nec rhoncus velit.</p>
-                            <div className="bg-gray-300 h-0.5 w-full mt-2"></div>
-                            <div className="flex mt-2">
-                                <div className="flex">
-                                    <button
-                                        className="mr-2 relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleUpvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Upvote ({upvoteCount})
-                                        </span>
-                                    </button>
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleDownvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Downvote ({downvoteCount})
-                                        </span>
-                                    </button>
-                                </div>
-                                <div className="ml-auto flex">
-                                    <input
-                                        type="text"
-                                        className="border border-white text-white rounded-md px-2 py-1 mr-2 bg-gray-800 focus:outline-none focus:border-pink-500"
-                                        placeholder="Enter your comment"
-                                        value={comment}
-                                        onChange={handleCommentChange}
-                                    />
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleComment}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Comment
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
+                        <div className="mb-8">
+                            <input
+                                type="text"
+                                className="w-full bg-gray-800 text-white p-2 rounded-tl rounded-tr"
+                                placeholder="Search by topic"
+                                value={searchTopic}
+                                onChange={(e) => setSearchTopic(e.target.value)}
+                            />
+                            <button
+                                className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 float-right mt-2"
+                                onClick={handleSearch}
+                            >
+                                <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                    Search
+                                </span>
+                            </button>
                         </div>
 
-                        <div className="border mt-10 mb-10 border-white p-4 rounded-md min-h-[5rem]">
-                            <div className="flex items-center mb-2">
-                                <p className="text-white font-semibold mr-2">Username</p>
-                            </div>
-                            <div className="bg-gray-300 h-0.5 w-full mb-2"></div>
-                            <p className="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis urna vitae mauris varius, et facilisis lacus ultrices. Ut nec odio in magna dictum posuere. Sed rhoncus lacinia dolor, id eleifend nunc sollicitudin vel. Vivamus nec quam non tortor sollicitudin suscipit. Nam vitae ex auctor, molestie eros non, consectetur libero. Vestibulum nec rhoncus velit.</p>
-                            <div className="bg-gray-300 h-0.5 w-full mt-2"></div>
-                            <div className="flex mt-2">
-                                <div className="flex">
-                                    <button
-                                        className="mr-2 relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleUpvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Upvote ({upvoteCount})
-                                        </span>
-                                    </button>
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleDownvote}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Downvote ({downvoteCount})
-                                        </span>
-                                    </button>
+                        {isLoading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            discussions.map((discussion) => (
+                                <div key={discussion._id} className="border mt-4 p-4 rounded-md">
+                                    <h2 className="text-lg font-semibold text-white mb-2">{discussion.topic}</h2>
+                                    <p className="text-gray-300">{discussion.description}</p>
                                 </div>
-                                <div className="ml-auto flex">
-                                    <input
-                                        type="text"
-                                        className="border border-white text-white rounded-md px-2 py-1 mr-2 bg-gray-800 focus:outline-none focus:border-pink-500"
-                                        placeholder="Enter your comment"
-                                        value={comment}
-                                        onChange={handleCommentChange}
-                                    />
-                                    <button
-                                        className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
-                                        onClick={handleComment}
-                                    >
-                                        <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                            Comment
-                                        </span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
