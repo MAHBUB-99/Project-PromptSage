@@ -10,6 +10,7 @@ import generateRoute from "./routes/generateRoute.js";
 import messageRoute from "./routes/messageRoute.js";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
+import discussionRoute from "./routes/discussionRoute.js";
 
 const app = express();
 dotenv.config({ path: "./config/config.env" });
@@ -37,6 +38,7 @@ app.use("/api/v1/prompts", promptRoute);
 app.use("/api/v1/payment", paymentRoute);
 app.use("/api/v1/generate", generateRoute);
 app.use("/api/v1/messages", messageRoute);
+app.use("/api/v1/discussions", discussionRoute);
 
 dbConnection();
 
