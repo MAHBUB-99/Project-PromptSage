@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import Navbar from '../../components/navbar/Navbar';
 
 function UserProfile() {
@@ -81,53 +82,58 @@ function UserProfile() {
                 <div className="flex flex-col w-full ml-4 mr-24">
                     {/* First Box */}
                     <div className="bg-slate-900 border rounded-lg p-8 md:p-8 max-w-full w-full text-white mb-4">
-                    <h2 className="text-lg font-semibold mb-4">My Prompts:</h2>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {samplePrompts.map((prompt) => (
-                            <div key={prompt.id} className="relative group">
-                                <div
-                                    style={{
-                                        backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8U80XAvqnq-qRc01c-OlQniEeKgIo8ZHqZx9bTKJf2rav8k0deO1rmry_ctGprnPoUB0)',
-                                    }}
-                                    className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
-                                >
-                                    <p className="text-white font-semibold text-sm">{prompt.name}</p>
-                                    {/* <p className="text-gray-300 text-xs">{prompt.author}</p> */}
+                        <h2 className="text-lg font-semibold mb-4">My Prompts:</h2>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            {samplePrompts.map((prompt) => (
+                                <div key={prompt.id} className="relative group">
+                                    <div
+                                        style={{
+                                            backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8U80XAvqnq-qRc01c-OlQniEeKgIo8ZHqZx9bTKJf2rav8k0deO1rmry_ctGprnPoUB0)',
+                                        }}
+                                        className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
+                                    >
+                                        <p className="text-white font-semibold text-sm">{prompt.name}</p>
+                                        {/* <p className="text-gray-300 text-xs">{prompt.author}</p> */}
+                                    </div>
+                                    {/* Add onClick handler to navigate to prompt details */}
+                                    <div
+                                        className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
+                                    // onClick={() => navigateToPromptDetails(prompt.id)}
+                                    ></div>
                                 </div>
-                                {/* Add onClick handler to navigate to prompt details */}
-                                <div
-                                    className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                                // onClick={() => navigateToPromptDetails(prompt.id)}
-                                ></div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
 
                     </div>
                     {/* Second Box */}
+
                     <div className="bg-slate-900 border rounded-lg p-8 md:p-8 max-w-full w-full text-white">
-                                            <h2 className="text-lg font-semibold mb-4">Bought Prompts:</h2>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        {samplePrompts.map((prompt) => (
-                            <div key={prompt.id} className="relative group">
-                                <div
-                                    style={{
-                                        backgroundImage: 'url(https://img.freepik.com/premium-photo/beautiful-majestic-eagle-ai-generative_863013-4999.jpg)',
-                                    }}
-                                    className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
-                                >
-                                    <p className="text-white font-semibold text-sm">{prompt.name}</p>
-                                    <p className="text-gray-300 text-xs">{prompt.author}</p>
+                        <h2 className="text-lg font-semibold mb-4">Bought Prompts:</h2>
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            {samplePrompts.map((prompt) => (
+                                <div key={prompt.id} className="relative group">
+                                    <a href={`bought-prompt/65d25196974ea6f5549234a9`} className="block">
+                                        <div
+                                            style={{
+                                                backgroundImage: 'url(https://img.freepik.com/premium-photo/beautiful-majestic-eagle-ai-generative_863013-4999.jpg)',
+                                            }}
+                                            className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
+                                        >
+                                            <p className="text-white font-semibold text-sm">{prompt.name}</p>
+                                            <p className="text-gray-300 text-xs">{prompt.author}</p>
+                                        </div>
+                                    </a>
+                                    {/* Add onClick handler to navigate to prompt details */}
+                                    <div
+                                        className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
+                                    // onClick={() => navigateToPromptDetails(prompt.id)}
+                                    ></div>
                                 </div>
-                                {/* Add onClick handler to navigate to prompt details */}
-                                <div
-                                    className="absolute inset-0 rounded-lg bg-transparent group-hover:bg-opacity-10 transition duration-300"
-                                // onClick={() => navigateToPromptDetails(prompt.id)}
-                                ></div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-                    </div>
+
+
                 </div>
             </div>
         </div>
