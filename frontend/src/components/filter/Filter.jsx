@@ -28,6 +28,7 @@ const Filter = ({ onFilterChange }) => {
   ];
   const sortByOptions = ["Top", "Newest", "Oldest"];
 
+  // const priceRangeOptions = ["All", "1-4", "5-9"];
   const priceRangeOptions = ["All", "2-3", "4-5", "6-7", "8-9"];
   const [priceRange, setPriceRange] = useState("All");
 

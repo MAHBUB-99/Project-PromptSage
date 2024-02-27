@@ -62,7 +62,24 @@ function Discussion() {
             <div className="bg-slate-900 min-h-screen">
                 <div className="flex flex-col items-center mt-5">
                     <div className="w-full max-w-xl md:max-w-2xl lg:max-w-3xl xl:max-w-4xl 2xl:max-w-5xl">
-                        <div className="mb-8">
+                    <div className="mb-8">
+                            <input
+                                type="text"
+                                className="w-full bg-gray-800 text-white p-2 rounded-tl rounded-tr"
+                                placeholder="Search by topic"
+                                value={searchTopic}
+                                onChange={(e) => setSearchTopic(e.target.value)}
+                            />
+                            {/* <button
+                                className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 float-right mt-2"
+                                onClick={handleSearch}
+                            >
+                                <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                    Search
+                                </span>
+                            </button> */}
+                        </div>
+                        <div className="mb-16">
                             <h1 className="text-4xl font-bold text-white mb-4 text-center">
                                 <span className="bg-gradient-to-r from-pink-500 to-orange-400 bg-clip-text text-transparent">Discussion</span>
                             </h1>
@@ -70,13 +87,13 @@ function Discussion() {
                                 <input
                                     type="text"
                                     className="w-full bg-gray-800 text-white p-2 rounded-tl rounded-tr"
-                                    placeholder="Topic"
+                                    placeholder="Add A Topic"
                                     value={topic}
                                     onChange={handleTopicChange}
                                 />
                                 <textarea
-                                    className="w-full h-28 bg-gray-800 text-white p-2 rounded-bl rounded-br"
-                                    placeholder="Description"
+                                    className="w-full h-28 mt-2 bg-gray-800 text-white p-2 rounded-bl rounded-br"
+                                    placeholder="Add A Description"
                                     value={description}
                                     onChange={handleDescriptionChange}
                                 />
@@ -91,23 +108,7 @@ function Discussion() {
                             </button>
                         </div>
 
-                        <div className="mb-8">
-                            <input
-                                type="text"
-                                className="w-full bg-gray-800 text-white p-2 rounded-tl rounded-tr"
-                                placeholder="Search by topic"
-                                value={searchTopic}
-                                onChange={(e) => setSearchTopic(e.target.value)}
-                            />
-                            <button
-                                className="relative inline-flex items-center justify-center p-0.5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 float-right mt-2"
-                                onClick={handleSearch}
-                            >
-                                <span className="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                    Search
-                                </span>
-                            </button>
-                        </div>
+                        
 
                         {isLoading ? (
                             <p>Loading...</p>
