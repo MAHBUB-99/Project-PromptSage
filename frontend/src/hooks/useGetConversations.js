@@ -13,7 +13,7 @@ const useGetConversations = () => {
         const res = await axios.get("http://localhost:4000/api/v1/users/chats", {
           withCredentials: true, // Include cookies
         });
-        setConversations(res.data);
+        setConversations(res.data.data);
       } catch (err) {
         if (err.response) {
           // The request was made and the server responded with a status code

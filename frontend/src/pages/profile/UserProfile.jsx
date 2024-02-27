@@ -14,7 +14,10 @@ useEffect(() => {
             const boughtPromptsData = [];
             for (const id of user.boughtPrompts) {
                 const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
-                boughtPromptsData.push(response.data.prompt);
+                // boughtPromptsData.push(response.data.prompt);
+                if(response.data.prompt) {
+                    boughtPromptsData.push(response.data.prompt);
+                }
             }
             setBoughtPrompts(boughtPromptsData);
 

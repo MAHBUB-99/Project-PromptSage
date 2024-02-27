@@ -70,9 +70,31 @@ function PromptDetails() {
     }
   };
 
-  const navigateBuyPrompt = () => {
-    navigate(`/buy-prompt/${id}`);
+  // const navigateBuyPrompt = () => {
+  //   // add post req of buying prompt localhost4000/api/v1/users/buy
+
+  //   navigate(`/buy-prompt/${id}`);
+  // };
+  const navigateBuyPrompt = async () => {
+    try {
+      // Send a POST request to the endpoint responsible for buying prompts
+      const response = await axios.post(
+        `http://localhost:4000/api/v1/users/buy`, 
+        { boughtBy: user._id, promptId: id }, // Include the promptId in the request body
+        { withCredentials: true }
+      );
+      if (response.data.success) {
+        // If the purchase is successful, navigate to the buy prompt page
+        navigate(`/buy-prompt/${id}`);
+      } else {
+        // Handle error scenarios if needed
+      }
+    } catch (error) {
+      console.error("Error buying prompt:", error);
+      // Handle error scenarios if needed
+    }
   };
+  
 
   const handleAddToCart = () => {
     navigate(`/cart/`);
