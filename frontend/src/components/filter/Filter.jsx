@@ -28,8 +28,15 @@ const Filter = ({ onFilterChange }) => {
   ];
   const sortByOptions = ["Top", "Newest", "Oldest"];
 
-  // Define price range options
-  const priceRangeOptions = ["All", "0-1", "2-3", "4-5"];
+  const priceRangeOptions = ["All", "2-3", "4-5", "6-7", "8-9"];
+  const [priceRange, setPriceRange] = useState("All");
+
+  const handlePriceRangeChange = (event) => {
+    const index = parseInt(event.target.value);
+    setPriceRange(priceRangeOptions[index]);
+    onFilterChange("priceRange", priceRangeOptions[index]);
+  };
+  
 
   const handleFilterChange = (filterType, value) => {
     onFilterChange(filterType, value);
@@ -69,18 +76,20 @@ const Filter = ({ onFilterChange }) => {
 
       {/* Price Range */}
       <div className="mb-4">
-        <h1 className="text-white mb-2">Price Range</h1>
-        {priceRangeOptions.map((range) => (
-          <label key={range} className="flex items-center text-white">
-            <input
-              type="radio"
-              name="PriceRange"
-              value={range}
-              onChange={() => handleFilterChange("priceRange", range)}
-            />{" "}
-            <span className="ml-2">{range}</span>
-          </label>
-        ))}
+        <h1 className="text-white mb-2">Price Range($)</h1>
+        <input
+          type="range"
+          min="0"
+          max={priceRangeOptions.length - 1}
+          value={priceRangeOptions.indexOf(priceRange)}
+          onChange={handlePriceRangeChange}
+          className="slider appearance-none bg-gray-300 h-1 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+        />
+        <div className="flex justify-between text-white">
+          {priceRangeOptions.map((option) => (
+            <span key={option}>{option}</span>
+          ))}
+        </div>
       </div>
 
       <div>
