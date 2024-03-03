@@ -60,7 +60,7 @@ export default function Payment() {
                 <span className="font-semibold text-white">
                   {prompt.title}
                 </span>
-                <span className="float-right text-gray-400 text-white">{prompt.type}</span>
+                <span className="float-right text-gray-400">{prompt.type}</span>
                 <p className="mt-auto text-lg font-bold text-white">${prompt.price}</p>
               </div>
             </div>
