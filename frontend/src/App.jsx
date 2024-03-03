@@ -12,6 +12,7 @@ import HireEngineerHome from "./pages/hire/HireEngineerHome";
 import MarketPlaceHome from "./pages/marketplace/MarketPlaceHome";
 import Notifications from "./pages/notifications/Notifications";
 import PromptDetails from "./pages/promptdetails/PromptDetails";
+import BoughtPromptDetails from "./pages/promptdetails/BoughtPromptDetails";
 import Cart from "./pages/payment/Cart";
 import Payment from "./pages/payment/Payment";
 import PaymentSuccessful from "./pages/payment/PaymentSuccesful";
@@ -41,6 +42,7 @@ function App() {
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/buy-prompt/:id" element={<Payment />} />
+        <Route path="/bought-prompt-details/:id" element={<BoughtPromptDetails />} />
         <Route path="/payment-successful" element={<PaymentSuccessful />} />
         <Route path="/payment-history" element={<ViewPaymentHistory />} />
         <Route

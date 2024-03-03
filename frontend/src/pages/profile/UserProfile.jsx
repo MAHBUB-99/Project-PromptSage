@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/navbar/Navbar';
 import axios from 'axios';
 import { useAuth } from '../../AuthContext';
 
 function UserProfile() {
     const { user } = useAuth();
+    const navigate = useNavigate();
     const [uploadedPrompts, setUploadedPrompts] = useState([]);
     const [boughtPrompts, setBoughtPrompts] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -14,11 +16,11 @@ function UserProfile() {
             setLoading(true);
             try {
                 // Fetch uploaded prompts
-                const uploadedResponse = await axios.get('http://localhost:4000/api/v1/prompts/my-prompts',{withCredentials:true});
+                const uploadedResponse = await axios.get('http://localhost:4000/api/v1/prompts/my-prompts', { withCredentials: true });
                 setUploadedPrompts(uploadedResponse.data.prompts);
 
                 // Fetch bought prompts
-                const boughtResponse = await axios.get('http://localhost:4000/api/v1/prompts/bought-prompts',{withCredentials:true});
+                const boughtResponse = await axios.get('http://localhost:4000/api/v1/prompts/bought-prompts', { withCredentials: true });
                 setBoughtPrompts(boughtResponse.data.prompts);
             } catch (error) {
                 console.error('Error fetching prompts:', error);
@@ -28,6 +30,10 @@ function UserProfile() {
         };
         fetchPrompts();
     }, []);
+
+    const handlePromptClick = (promptId) => {
+        navigate(`/bought-prompt-details/${promptId}`);
+    };
 
     return (
         <div className="bg-slate-900 min-h-screen">
@@ -54,7 +60,7 @@ function UserProfile() {
                         ) : (
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                 {uploadedPrompts.map(prompt => (
-                                    <div key={prompt._id} className="relative group">
+                                    <div key={prompt._id} className="relative group" onClick={() => handlePromptClick(prompt._id)}>
                                         <div
                                             style={{ backgroundImage: `url(${prompt.cover_image.url})` }}
                                             className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
@@ -74,7 +80,7 @@ function UserProfile() {
                         ) : (
                             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                                 {boughtPrompts.map(prompt => (
-                                    <div key={prompt._id} className="relative group">
+                                    <div key={prompt._id} className="relative group" onClick={() => handlePromptClick(prompt._id)}>
                                         <div
                                             style={{ backgroundImage: `url(${prompt.cover_image.url})` }}
                                             className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
