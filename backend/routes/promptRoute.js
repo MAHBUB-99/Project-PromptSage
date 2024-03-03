@@ -1,4 +1,4 @@
-import { createPrompt, deletePrompt, getAllPrompts, getMyPrompts, getPromptById, updatePrompt,likePrompt,getEngineerPrompts } from "../controller/prompt.js";
+import { createPrompt, deletePrompt, getAllPrompts, getMyPrompts, getPromptById, updatePrompt,likePrompt,getEngineerPrompts,getBoughtPrompts } from "../controller/prompt.js";
 import express from "express";
 import { isAuthorized } from "../middlewares/auth.js";
 
@@ -6,6 +6,7 @@ const router = express.Router();
 
 
 router.get("/my-prompts", isAuthorized, getMyPrompts);
+router.get("/bought-prompts", isAuthorized, getBoughtPrompts);
 router.put("/update/:id", isAuthorized, updatePrompt);
 router.delete("/delete/:id", isAuthorized, deletePrompt);
 router.post("/like/:id",isAuthorized,likePrompt);

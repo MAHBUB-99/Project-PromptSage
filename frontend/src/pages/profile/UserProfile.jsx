@@ -5,35 +5,29 @@ import { useAuth } from '../../AuthContext';
 
 function UserProfile() {
     const { user } = useAuth();
+    const [uploadedPrompts, setUploadedPrompts] = useState([]);
     const [boughtPrompts, setBoughtPrompts] = useState([]);
-    const [soldPrompts, setSoldPrompts] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-useEffect(() => {
-    const fetchPrompts = async () => {
-        try {
-            const boughtPromptsData = [];
-            for (const id of user.boughtPrompts) {
-                const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
-                // boughtPromptsData.push(response.data.prompt);
-                if(response.data.prompt) {
-                    boughtPromptsData.push(response.data.prompt);
-                }
+    useEffect(() => {
+        const fetchPrompts = async () => {
+            setLoading(true);
+            try {
+                // Fetch uploaded prompts
+                const uploadedResponse = await axios.get('http://localhost:4000/api/v1/prompts/my-prompts',{withCredentials:true});
+                setUploadedPrompts(uploadedResponse.data.prompts);
+
+                // Fetch bought prompts
+                const boughtResponse = await axios.get('http://localhost:4000/api/v1/prompts/bought-prompts',{withCredentials:true});
+                setBoughtPrompts(boughtResponse.data.prompts);
+            } catch (error) {
+                console.error('Error fetching prompts:', error);
+            } finally {
+                setLoading(false);
             }
-            setBoughtPrompts(boughtPromptsData);
-
-            const soldPromptsData = [];
-            for (const id of user.soldPrompts) {
-                const response = await axios.get(`http://localhost:4000/api/v1/prompts/${id}`);
-                soldPromptsData.push(response.data.prompt);
-            }
-            setSoldPrompts(soldPromptsData);
-        } catch (error) {
-            console.error("Error fetching prompt details:", error);
-        }
-    };
-    fetchPrompts();
-}, [user.boughtPrompts, user.soldPrompts]);
-
+        };
+        fetchPrompts();
+    }, []);
 
     return (
         <div className="bg-slate-900 min-h-screen">
@@ -52,37 +46,45 @@ useEffect(() => {
                 </div>
 
                 <div className="flex flex-col w-full ml-4 mr-24">
-                    {/* First Box */}
+                    {/* Uploaded Prompts */}
                     <div className="bg-slate-900 border rounded-lg p-8 md:p-8 max-w-full w-full text-white mb-4">
-                        <h2 className="text-lg font-semibold mb-4">My Prompts:</h2>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                            {soldPrompts.map(prompt => (
-                                <div key={prompt._id} className="relative group">
-                                    <div
-                                        style={{ backgroundImage: `url(${prompt.cover_image.url})` }}
-                                        className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
-                                    >
-                                        <p className="text-white font-semibold text-sm">{prompt.title}</p>
+                        <h2 className="text-lg font-semibold mb-4">Uploaded Prompts:</h2>
+                        {loading ? (
+                            <p className="text-white">Loading...</p>
+                        ) : (
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                {uploadedPrompts.map(prompt => (
+                                    <div key={prompt._id} className="relative group">
+                                        <div
+                                            style={{ backgroundImage: `url(${prompt.cover_image.url})` }}
+                                            className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
+                                        >
+                                            <p className="text-white font-semibold text-sm">{prompt.title}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                    {/* Second Box */}
+                    {/* Bought Prompts */}
                     <div className="bg-slate-900 border rounded-lg p-8 md:p-8 max-w-full w-full text-white">
                         <h2 className="text-lg font-semibold mb-4">Bought Prompts:</h2>
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                            {boughtPrompts.map(prompt => (
-                                <div key={prompt._id} className="relative group">
-                                    <div
-                                        style={{ backgroundImage: `url(${prompt.cover_image.url})` }}
-                                        className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
-                                    >
-                                        <p className="text-white font-semibold text-sm">{prompt.title}</p>
+                        {loading ? (
+                            <p className="text-white">Loading...</p>
+                        ) : (
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                                {boughtPrompts.map(prompt => (
+                                    <div key={prompt._id} className="relative group">
+                                        <div
+                                            style={{ backgroundImage: `url(${prompt.cover_image.url})` }}
+                                            className="bg-cover bg-center rounded-lg p-4 h-28 flex flex-col justify-end cursor-pointer transform transition duration-300 group-hover:scale-105"
+                                        >
+                                            <p className="text-white font-semibold text-sm">{prompt.title}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

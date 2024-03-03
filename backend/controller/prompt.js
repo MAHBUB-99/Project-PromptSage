@@ -163,6 +163,21 @@ export const getMyPrompts = catchAsyncError(async (req, res, next) => {
   });
 });
 
+export const getBoughtPrompts = catchAsyncError(async (req, res, next) => {  
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  
+  // Fetch prompts bought by the user
+  const prompts = await Prompt.find({ _id: { $in: user.boughtPrompts } });
+
+  res.status(200).json({
+    success: true,
+    prompts,
+  });
+});
+
 export const getEngineerPrompts = catchAsyncError(async (req, res, next) => {
   const { id } = req.params;
   const engineer = await Engineer.findOne({ user: id });
