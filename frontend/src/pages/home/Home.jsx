@@ -17,7 +17,7 @@ function Home() {
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
-        const url = `http://localhost:4000/api/v1/prompts/all-prompts/?type=${type}&sort=${sort}&engine=${engine}&category=${category}&search=${search}`;
+        const url = `/api/v1/prompts/all-prompts/?type=${type}&sort=${sort}&engine=${engine}&category=${category}&search=${search}`;
         const response = await axios.get(url);
         setPrompts(response.data.prompts);
       } catch (error) {
@@ -27,7 +27,7 @@ function Home() {
 
     const fetchEngineers = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/v1/users/engineer/all');
+        const response = await axios.get('/api/v1/users/engineer/all');
         setEngineers(response.data);
       } catch (error) {
         console.error('Error fetching engineers:', error);

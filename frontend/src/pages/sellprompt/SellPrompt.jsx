@@ -64,7 +64,7 @@ function SellPrompt() {
       formData.append("uploadedBy", uploadedBy);
 
       const response = await axios.post(
-        "http://localhost:4000/api/v1/prompts/create",
+        "/api/v1/prompts/create",
         formData,
         {
           headers: {

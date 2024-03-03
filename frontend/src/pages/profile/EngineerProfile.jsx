@@ -16,13 +16,13 @@ function EngineerProfile() {
     const fetchEngineerDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/users/engineer/${id}`
+          `/api/v1/users/engineer/${id}`
         );
         setEngineer(response.data);
 
         // Fetch prompts associated with the engineer
         const promptsResponse = await axios.get(
-          `http://localhost:4000/api/v1/prompts/engineer/${id}`
+          `/api/v1/prompts/engineer/${id}`
         );
         setPrompts(promptsResponse.data.data);
       } catch (error) {
@@ -39,7 +39,7 @@ function EngineerProfile() {
 
   const navigateToChats = async () => {
     try{
-        const res = await axios.post(`http://localhost:4000/api/v1/messages/send/${engineer.user}`, {
+        const res = await axios.post(`/api/v1/messages/send/${engineer.user}`, {
             message: `Hi ${engineer.username}, I'm interested in your services. Let's chat!`
         }, {
             withCredentials: true

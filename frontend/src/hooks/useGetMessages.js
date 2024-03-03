@@ -12,7 +12,7 @@ const useGetMessages = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/v1/messages/${selectedConversation._id}`,
+          `/api/v1/messages/${selectedConversation._id}`,
           { withCredentials: true }
         ); // id is userToChatId
         if (res.error) {

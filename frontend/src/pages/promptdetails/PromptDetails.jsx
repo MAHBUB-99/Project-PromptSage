@@ -18,7 +18,7 @@ function PromptDetails() {
     const fetchPromptDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/prompts/${id}`
+          `/api/v1/prompts/${id}`
         );
         const { prompt } = response.data;
         setPrompt(prompt);
@@ -40,7 +40,7 @@ function PromptDetails() {
     const fetchUploaderDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/users/${prompt.uploadedBy}`
+          `/api/v1/users/${prompt.uploadedBy}`
         );
         setUploadedBy(response.data.data);
         console.log("Uploader details:", response.data.data);
@@ -56,7 +56,7 @@ function PromptDetails() {
   const handleLike = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/v1/prompts/like/${id}`, 
+        `/api/v1/prompts/like/${id}`, 
         {}, // Empty data object if no request body is needed
         {
           withCredentials: true,
@@ -80,7 +80,7 @@ function PromptDetails() {
     try {
       // Send a POST request to the endpoint responsible for buying prompts
       const response = await axios.post(
-        `http://localhost:4000/api/v1/users/buy`, 
+        `/api/v1/users/buy`, 
         { boughtBy: user._id, promptId: id }, // Include the promptId in the request body
         { withCredentials: true }
       );

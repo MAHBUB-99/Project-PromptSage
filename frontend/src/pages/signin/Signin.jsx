@@ -16,7 +16,7 @@ function Signin() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/users/login",
+        "/api/v1/users/login",
         {
           email,
           password,

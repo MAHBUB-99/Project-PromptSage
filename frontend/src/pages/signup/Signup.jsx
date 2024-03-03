@@ -13,7 +13,7 @@ function Signup() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/v1/users/create",
+        "/api/v1/users/create",
         {
           username,
           email,

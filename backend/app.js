@@ -40,6 +40,13 @@ app.use("/api/v1/generate", generateRoute);
 app.use("/api/v1/messages", messageRoute);
 app.use("/api/v1/discussions", discussionRoute);
 
+app.get("/", (req, res, next) => {
+  return res.status(200).json({
+    success: true,
+    message: "Welcome to the Prompt Marketplace",
+  });
+});
+
 dbConnection();
 
 app.use(errorMiddleware);

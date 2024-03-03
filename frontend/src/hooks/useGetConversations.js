@@ -10,7 +10,7 @@ const useGetConversations = () => {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await axios.get("http://localhost:4000/api/v1/users/chats", {
+        const res = await axios.get("/api/v1/users/chats", {
           withCredentials: true, // Include cookies
         });
         setConversations(res.data.data);

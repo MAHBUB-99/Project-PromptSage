@@ -9,7 +9,7 @@ function GeneratePrompt() {
 
   const handleGenerate = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/api/v1/generate", {
+      const response = await axios.post("/api/v1/generate", {
         prompt: promptTopic
       });
       setSearchResult(response.data); // Assuming the response contains the generated result

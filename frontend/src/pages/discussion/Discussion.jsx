@@ -14,7 +14,7 @@ function Discussion() {
         const fetchDiscussions = async () => {
             setIsLoading(true);
             try {
-                let url = 'http://localhost:4000/api/v1/discussions/all';
+                let url = '/api/v1/discussions/all';
                 if (searchTopic) {
                     url += `?topic=${searchTopic}`;
                 }
@@ -40,7 +40,7 @@ function Discussion() {
 
     const handlePost = async () => {
         try {
-            const response = await axios.post('http://localhost:4000/api/v1/discussions/create', {
+            const response = await axios.post('/api/v1/discussions/create', {
                 topic,
                 description,
             });

@@ -11,7 +11,7 @@ function Success() {
   //     try {
   //       console.log(`USER: ${user_id} and PROMPT: ${boughtPromptId}`)
   //       // Make API call to update user's data
-  //       await axios.post("http://localhost:4000/api/v1/users/buy", {
+  //       await axios.post("/api/v1/users/buy", {
   //         boughtBy: user_id,
   //         promptId: boughtPromptId,
   //       });

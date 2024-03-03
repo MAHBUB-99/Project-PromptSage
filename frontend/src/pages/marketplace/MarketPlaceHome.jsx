@@ -18,7 +18,7 @@ function MarketPlaceHome() {
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
-        const url = `http://localhost:4000/api/v1/prompts/all-prompts/?type=${type}&sort=${sort}&engine=${engine}&category=${category}&search=${search}&priceRange=${priceRange}`;
+        const url = `/api/v1/prompts/all-prompts/?type=${type}&sort=${sort}&engine=${engine}&category=${category}&search=${search}&priceRange=${priceRange}`;
         const response = await axios.get(url);
         setPrompts(response.data.prompts);
       } catch (error) {

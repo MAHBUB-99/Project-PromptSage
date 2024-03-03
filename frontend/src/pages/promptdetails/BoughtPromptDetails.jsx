@@ -15,7 +15,7 @@ function BoughtPromptDetails() {
     const fetchPromptDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/prompts/${id}`
+          `/api/v1/prompts/${id}`
         );
         const { prompt } = response.data;
         setPrompt(prompt);
@@ -30,7 +30,7 @@ function BoughtPromptDetails() {
     const fetchUploaderDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/users/${prompt.uploadedBy}`
+          `/api/v1/users/${prompt.uploadedBy}`
         );
         setUploadedBy(response.data.data);
       } catch (error) {

@@ -13,7 +13,7 @@ export default function Payment() {
     const fetchPromptDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/v1/prompts/${id}`
+          `/api/v1/prompts/${id}`
         );
         const { prompt } = response.data;
         setPrompt(prompt);

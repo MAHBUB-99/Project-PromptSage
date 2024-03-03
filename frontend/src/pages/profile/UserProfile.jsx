@@ -16,11 +16,11 @@ function UserProfile() {
             setLoading(true);
             try {
                 // Fetch uploaded prompts
-                const uploadedResponse = await axios.get('http://localhost:4000/api/v1/prompts/my-prompts', { withCredentials: true });
+                const uploadedResponse = await axios.get('/api/v1/prompts/my-prompts', { withCredentials: true });
                 setUploadedPrompts(uploadedResponse.data.prompts);
 
                 // Fetch bought prompts
-                const boughtResponse = await axios.get('http://localhost:4000/api/v1/prompts/bought-prompts', { withCredentials: true });
+                const boughtResponse = await axios.get('/api/v1/prompts/bought-prompts', { withCredentials: true });
                 setBoughtPrompts(boughtResponse.data.prompts);
             } catch (error) {
                 console.error('Error fetching prompts:', error);

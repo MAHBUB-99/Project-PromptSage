@@ -14,7 +14,7 @@ function EditPrompt() {
     const fetchPromptDetails = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:4000/api/v1/prompts/${id}`
+          `/api/v1/prompts/${id}`
         );
         setPrompt(res.data.prompt);
       } catch (error) {
