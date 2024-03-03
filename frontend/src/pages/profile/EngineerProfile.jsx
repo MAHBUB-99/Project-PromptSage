@@ -3,12 +3,14 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 
 function EngineerProfile() {
   const [engineer, setEngineer] = useState({});
   const [prompts, setPrompts] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchEngineerDetails = async () => {
@@ -33,6 +35,19 @@ function EngineerProfile() {
 
   const navigateToPromptDetails = (promptId) => {
     navigate(`/marketplace/${promptId}`);
+  };
+
+  const navigateToChats = async () => {
+    try{
+        const res = await axios.post(`http://localhost:4000/api/v1/messages/send/${engineer.user}`, {
+            message: `Hi ${engineer.username}, I'm interested in your services. Let's chat!`
+        }, {
+            withCredentials: true
+        });
+    } catch (error) {
+        console.error("Error navigating to chats:", error);
+    }
+    navigate(`/chats`);
   };
 
   return (
@@ -66,13 +81,18 @@ function EngineerProfile() {
               <p className="text-sm">{engineer.soldPrompts?.length}</p>
             </div>
           </div>
-          <div className="flex justify-around mt-4">
-            <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
-              <span class="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Send a Message
-              </span>
-            </button>
-          </div>
+          {engineer.user !== user._id && (
+            <div className="flex justify-around mt-4">
+              <button
+                onClick={navigateToChats}
+                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+              >
+                <span class="relative px-8 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                  Send a Message
+                </span>
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col w-full ml-4 mr-24">
