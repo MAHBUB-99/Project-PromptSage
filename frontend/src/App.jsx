@@ -49,7 +49,7 @@ function App() {
         />
         <Route path="/edit-prompt/:id" element={<EditPrompt />} />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/engineer-profile" element={<EngineerProfile />} />
+        <Route path="/engineer-profile/:id" element={<EngineerProfile />} />
         <Route path="/discussion" element={<Discussion />} />
         <Route path="/payment-success" element={<Success />} />
         <Route path="/chats" element={<Chats />} />

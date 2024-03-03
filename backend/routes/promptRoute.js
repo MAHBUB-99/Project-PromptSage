@@ -1,4 +1,4 @@
-import { createPrompt, deletePrompt, getAllPrompts, getMyPrompts, getPromptById, updatePrompt,likePrompt } from "../controller/prompt.js";
+import { createPrompt, deletePrompt, getAllPrompts, getMyPrompts, getPromptById, updatePrompt,likePrompt,getEngineerPrompts } from "../controller/prompt.js";
 import express from "express";
 import { isAuthorized } from "../middlewares/auth.js";
 
@@ -12,5 +12,6 @@ router.post("/like/:id",isAuthorized,likePrompt);
 router.post("/create", isAuthorized, createPrompt);
 router.get("/all-prompts", getAllPrompts);
 router.get("/:id", getPromptById);
+router.get("/engineer/:id", getEngineerPrompts);
 
 export default router;

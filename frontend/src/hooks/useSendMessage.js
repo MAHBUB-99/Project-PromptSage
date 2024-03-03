@@ -11,7 +11,8 @@ const useSendMessage = () => {
     try {
       const res = await axios.post(
         `http://localhost:4000/api/v1/messages/send/${selectedConversation._id}`,
-        { message }
+        { message },
+        { withCredentials: true }
       );
       if(res.error) {
         throw new Error(res.error);

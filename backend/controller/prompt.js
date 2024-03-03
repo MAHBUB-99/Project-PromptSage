@@ -1,5 +1,6 @@
 import { Prompt } from "../models/promptSchema.js";
 import { User } from "../models/userSchema.js";
+import { Engineer } from "../models/engineerSchema.js";
 import ErrorHandler from "../middlewares/error.js";
 import { catchAsyncError } from "../middlewares/catchAsyncError.js";
 import cloudinary from "cloudinary";
@@ -17,28 +18,35 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("You are not allowed to sell prompts", 400));
   }
 
-  const { title, description, type, category ,price, prompt, engine, tipsToUse } =
-    req.body;
-  if (!title || !description || !type || !category || !price || !prompt || !engine) {
+  const {
+    title,
+    description,
+    type,
+    category,
+    price,
+    prompt,
+    engine,
+    tipsToUse,
+  } = req.body;
+  if (
+    !title ||
+    !description ||
+    !type ||
+    !category ||
+    !price ||
+    !prompt ||
+    !engine
+  ) {
     return next(new ErrorHandler("Please provide all required fields", 400));
   }
-  // if(!req.file || Object.keys(req.file).length === 0 ){
-  //   return next(new ErrorHandler("Please upload a prompt cover image", 400));
-  // }
   if (!req.files || Object.keys(req.files).length === 0) {
     return next(new ErrorHandler("Please upload images", 400));
   }
   const { cover_image } = req.files;
-  // const {sample_images} = req.files;
   const allowedFormats = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
   if (!allowedFormats.includes(cover_image.mimetype)) {
     return next(new ErrorHandler("Please upload a valid cover image", 400));
   }
-  // for (let i = 0; i < req.files.length; i++) {
-  //   if (!allowedFormats.includes(req.files[i].mimetype)) {
-  //     return next(new ErrorHandler("Please upload valid sample images", 400));
-  //   }
-  // }
   const cloudinaryResponse = await cloudinary.uploader.upload(
     cover_image.tempFilePath,
     {
@@ -54,20 +62,6 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
     );
     return next(new ErrorHandler("Prompt cover image upload failed", 500));
   }
-  // const cover_image_url = cloudinaryResponse.secure_url;
-  // const cover_image_public_id = cloudinaryResponse.public_id;
-  // const sample_images_url = [];
-  // const sample_images_public_id = [];
-  // for(let i=0;i<sample_images.length;i++){
-  //   const cloudinaryResponse = await cloudinary.uploader.upload(sample_images[i].tempFilePath);
-  //   if(!cloudinaryResponse || cloudinaryResponse.error){
-  //     console.log("Cloudinary Error: ",cloudinaryResponse.error||"Unknown Error");
-  //     return next(new ErrorHandler("Prompt sample image upload failed", 500));
-  //   }
-  //   sample_images_url.push(cloudinaryResponse.secure_url);
-  //   sample_images_public_id.push(cloudinaryResponse.public_id);
-  // }
-
   const uploadedBy = req.user._id;
   const newPrompt = await Prompt.create({
     title,
@@ -83,18 +77,11 @@ export const createPrompt = catchAsyncError(async (req, res, next) => {
       url: cloudinaryResponse.secure_url,
     },
     uploadedBy,
-
-    // sample_images: sample_images.map((image) => {
-    //   return {
-    //     public_id: image.public_id,
-    //     url: image.secure_url,
-    //   };
-    // }),
   });
   // add this prompt as the user's sold prompt
-  const user = await User.findById(uploadedBy);
-  user.soldPrompts.push(newPrompt);
-  await user.save();
+  // const user = await User.findById(uploadedBy);
+  // user.soldPrompts.push(newPrompt);
+  // await user.save();
 
   res.status(201).json({
     success: true,
@@ -176,6 +163,17 @@ export const getMyPrompts = catchAsyncError(async (req, res, next) => {
   });
 });
 
+export const getEngineerPrompts = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
+  const engineer = await Engineer.findOne({ user: id });
+  if (!engineer) return next(new ErrorHandler("Engineer not found", 404));
+  // Fetch prompts sold by the engineer
+  const prompts = await Prompt.find({ _id: { $in: engineer.soldPrompts } });
+  res.status(200).json({
+    success: true,
+    data: prompts,
+  });
+});
 
 /**
  * Controller function to update a prompt
@@ -210,7 +208,6 @@ export const updatePrompt = catchAsyncError(async (req, res, next) => {
     prompt,
   });
 });
-
 
 /**
  * Controller function to delete a prompt
@@ -266,7 +263,7 @@ export const likePrompt = catchAsyncError(async (req, res, next) => {
   const userId = req.user._id;
 
   // Check if the user has already liked the prompt
-  if (prompt.likes.some(like => like.equals(userId))) {
+  if (prompt.likes.some((like) => like.equals(userId))) {
     return next(new ErrorHandler("You have already liked this prompt", 400));
   }
 
@@ -284,5 +281,3 @@ export const likePrompt = catchAsyncError(async (req, res, next) => {
     message: "Prompt liked successfully------------",
   });
 });
-
-

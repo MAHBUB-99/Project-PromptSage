@@ -42,7 +42,8 @@ function PromptDetails() {
         const response = await axios.get(
           `http://localhost:4000/api/v1/users/${prompt.uploadedBy}`
         );
-        setUploadedBy(response.data);
+        setUploadedBy(response.data.data);
+        console.log("Uploader details:", response.data.data);
       } catch (error) {
         console.error("Error fetching uploader details:", error);
       }
@@ -102,6 +103,7 @@ function PromptDetails() {
 
   const navigateToEngineerProfile = (id) => {
     // Navigate to engineer profile with id
+    navigate(`/engineer-profile/${uploadedBy._id}`);
   };
 
   if (!prompt) {
@@ -187,10 +189,10 @@ function PromptDetails() {
                 backgroundPosition: 'center',
               }}
               className="w-full h-64 object-cover rounded-lg shadow-lg cursor-pointer transform transition duration-300 hover:scale-105 relative"
-              onClick={() => navigateToEngineerProfile(engineer.id)}
+              onClick={() => navigateToEngineerProfile()}
             >
               <div className="absolute p-6 bottom-0 left-0 w-full  bg-black bg-opacity-50 rounded-b-lg">
-                <h2 className="text-white text-lg font-semibold mb-2">Arif Faisal</h2>
+                <h2 className="text-white text-lg font-semibold mb-2">{uploadedBy.email}</h2>
                 <p className="text-gray-300">DALL-E</p>
               </div>
             </div>
