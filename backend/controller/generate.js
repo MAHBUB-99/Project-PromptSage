@@ -15,7 +15,7 @@ export const generateImage = catchAsyncError(async (req, res, next) => {
     prompt: prompt,
   });
   const image = aiResponse.data[0].url;
-  // console.log(image);
+  console.log(image);
   res.status(200).json({
     success: true,
     image,
