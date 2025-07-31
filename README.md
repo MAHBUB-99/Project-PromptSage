@@ -30,6 +30,10 @@ PromptSage is a platform where you can craft, sell, and buy engaging prompts eff
 12. **Recommendation System:** Get personalized recommendations on the homepage.
 13. **Instant Image Generation and Sale:** Generate images and sell them instantly.
 
+# Demo Video
+
+https://www.youtube.com/watch?v=P1j9AOkzhqU
+
 ## Getting Started
 
 ### Prerequisites
