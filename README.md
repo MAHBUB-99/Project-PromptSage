@@ -17,11 +17,6 @@ PromptSage is a dynamic platform designed to **craft, buy, and sell engaging pro
 - [Getting Started](#getting-started)  
   - [Prerequisites](#prerequisites)  
   - [Installation](#installation)  
-  - [Environment Setup](#environment-setup)  
-  - [Running the App](#running-the-app)  
-- [Usage](#usage)  
-- [Contributing](#contributing)  
-- [License](#license)  
 
 ---
 
