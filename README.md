@@ -12,11 +12,11 @@ PromptSage is a dynamic platform designed to **craft, buy, and sell engaging pro
 
 ## 📚 Table of Contents
 
-- [Features](#features)  
-- [Getting Started](#getting-started)  
-- [Usage](#usage)  
-- [Contributing](#contributing)  
-- [License](#license)  
+- [Features](#features)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
